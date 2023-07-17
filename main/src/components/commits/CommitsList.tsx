@@ -1,40 +1,12 @@
-import { Commit } from "@prisma/client"
+import { Commit } from "@prisma/client";
 import { CommitCard } from "./CommitCard";
 
-const commits: Commit[] = [
-  {
-    id: '1',
-    hash: 'dawjdawidjawidwa',
-    message: 'feat: omg, this is a commit example!'
-  },
-  {
-    id: '2',
-    hash: 'dawjdawidjawidwa',
-    message: 'feat: omg, this is a commit example!'
-  },
-  {
-    id: '3',
-    hash: 'dawjdawidjawidwa',
-    message: 'feat: omg, this is a commit example!'
-  },
-  {
-    id: '4',
-    hash: 'dawjdawidjawidwa',
-    message: 'feat: omg, this is a commit example!'
-  },
-  {
-    id: '5',
-    hash: 'dawjdawidjawidwa',
-    message: 'feat: omg, this is a commit example!'
-  },
-  {
-    id: '6',
-    hash: 'dawjdawidjawidwa',
-    message: 'feat: omg, this is a commit example!'
-  },
-]
+export interface CommitsListProps {
+  commits: Commit[],
+}
 
-export function CommitsList() {
+export function CommitsList({ commits }: CommitsListProps) {
+
   return (
     <div className="flow-root">
       <ul role="list" className="-mb-8">

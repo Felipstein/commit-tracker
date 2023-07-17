@@ -1,10 +1,13 @@
 import { CommitsList } from "@/components/commits/CommitsList";
+import { prisma } from "@/lib/prisma";
 
-export default function HomePage() {
+export default async function HomePage() {
+
+  const commits = await prisma.commit.findMany();
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <CommitsList />
+      <CommitsList commits={commits} />
     </div>
   );
 }
