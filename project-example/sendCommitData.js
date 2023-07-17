@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { default: chalk } = require('chalk');
+const chalk = require('chalk');
 
 const MAIN_APP_URL = 'http://localhost:4000';
 
