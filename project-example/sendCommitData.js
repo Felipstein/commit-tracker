@@ -7,10 +7,11 @@ const MAIN_APP_ENDPOINT = 'http://localhost:3000/api/commits';
  * Send the commit data to the main app
  * @param {string} commitMessage 
  * @param {string} commitHash
- * @param {string} author
+ * @param {string} authorName
+ * @param {string} authorEmail
  * @param {string} date
  */
-async function sendCommitData(commitMessage, commitHash, author, date) {
+async function sendCommitData(commitMessage, commitHash, authorName, authorEmail, date) {
   try {
     if(!commitMessage) {
       throw new Error('Missing "commitMessage".');
@@ -20,8 +21,12 @@ async function sendCommitData(commitMessage, commitHash, author, date) {
       throw new Error('Missing "commitHash".');
     }
 
-    if(!author) {
-      throw new Error('Missing "author".');
+    if(!authorName) {
+      throw new Error('Missing "authorName".');
+    }
+
+    if(!authorEmail) {
+      throw new Error('Missing "authorEmail".');
     }
 
     if(!date) {
@@ -31,7 +36,8 @@ async function sendCommitData(commitMessage, commitHash, author, date) {
     const commitData = {
       commitMessage,
       commitHash,
-      author,
+      authorName,
+      authorEmail,
       date: date.split(' ').slice(0, 2).join(' '),
     };
 
@@ -61,7 +67,8 @@ async function sendCommitData(commitMessage, commitHash, author, date) {
 
 const commitHash = process.argv[2];
 const commitMessage = process.argv[3];
-const author = process.argv[4];
-const date = process.argv[5];
+const authorName = process.argv[4];
+const authorEmail = process.argv[5];
+const date = process.argv[6];
 
-sendCommitData(commitMessage, commitHash, author, date);
+sendCommitData(commitMessage, commitHash, authorName, authorEmail, date);
