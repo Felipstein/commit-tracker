@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Commit {
+  id      String @id @default(cuid())
+  hash    String @unique
+  message String
+
+  @@map("commits")
+}
