@@ -1,7 +1,7 @@
 const axios = require('axios');
 const chalk = require('chalk');
 
-const MAIN_APP_URL = 'http://localhost:4000';
+const MAIN_APP_ENDPOINT = 'http://localhost:3000/api/commits';
 
 /**
  * Send the commit data to the main app
@@ -23,7 +23,7 @@ async function sendCommitData(commitMessage, commitHash) {
     const shortCommitMessage = commitMessage.length > 25 ? commitMessage.substring(0, 25).concat('...') : commitMessage
     console.info(chalk.gray(`\nSubmitting commit ${commitHash} (${shortCommitMessage})`));
 
-    await axios.post(`${MAIN_APP_URL}/commits`, commitData);
+    await axios.post(MAIN_APP_ENDPOINT, commitData);
 
     console.info(
       chalk.green('Commit '),
