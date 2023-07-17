@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { default: chalk } = require('chalk');
 
 const MAIN_APP_URL = 'http://localhost:4000';
 
@@ -20,13 +21,17 @@ async function sendCommitData(commitMessage, commitHash) {
     const commitData = { commitMessage, commitHash };
 
     const shortCommitMessage = commitMessage.length > 25 ? commitMessage.substring(0, 25).concat('...') : commitMessage
-    console.info(`Submitting commit ${commitHash} (${shortCommitMessage})`);
+    console.info(chalk.gray(`\nSubmitting commit ${commitHash} (${shortCommitMessage})`));
 
     await axios.post(`${MAIN_APP_URL}/commits`, commitData);
 
-    console.info(`Commit ${commitHash} submitted successfully.`);
+    console.info(
+      chalk.green('Commit '),
+      chalk.yellow(commitHash),
+      chalk.green(' submitted successfully.'),
+    );
   } catch (err) {
-    console.error(`An error occurred when submitting commit ${commitHash}:`);
+    console.error(chalk.red(`An error occurred when submitting commit ${commitHash}:`));
 
     let finalErrorDetails = err;
 
@@ -34,7 +39,8 @@ async function sendCommitData(commitMessage, commitHash) {
       finalErrorDetails = err.response?.data || err.cause;
     }
 
-    console.error(finalErrorDetails);
+    console.error(chalk.red(finalErrorDetails));
+    console.error('\n');
   }
 }
 
