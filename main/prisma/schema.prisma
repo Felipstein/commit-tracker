@@ -8,9 +8,13 @@ datasource db {
 }
 
 model Commit {
-  id      String @id @default(cuid())
-  hash    String @unique
-  message String
+  id          String   @id @default(cuid())
+  hash        String   @unique
+  message     String
+  authorName  String
+  authorEmail String
+  isSubmitted Boolean  @default(false)
+  committedAt DateTime @default(now())
 
   @@map("commits")
 }
