@@ -3,8 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "pinst": "^3.0.0"
+  },
   "dependencies": {
     "axios": "^1.4.0"
+  },
+  "scripts": {
+    "postinstall": "cd .. && husky install project-example/.husky",
+    "prepack": "pinst --disable",
+    "postpack": "pinst --enable"
   }
 }
