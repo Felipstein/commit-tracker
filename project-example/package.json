@@ -1,0 +1,10 @@
+{
+  "name": "project-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@rocketseat/eslint-config": "^2.0.1",
+    "eslint": "^8.45.0"
+  }
+}
