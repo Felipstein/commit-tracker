@@ -26,9 +26,9 @@ async function sendCommitData(commitMessage, commitHash) {
     await axios.post(MAIN_APP_ENDPOINT, commitData);
 
     console.info(
-      chalk.green('Commit '),
+      chalk.green('Commit'),
       chalk.yellow(commitHash),
-      chalk.green(' submitted successfully.'),
+      chalk.green('submitted successfully.'),
     );
   } catch (err) {
     console.error(chalk.red(`An error occurred when submitting commit ${commitHash}:`));
