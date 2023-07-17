@@ -10,8 +10,9 @@ const MAIN_APP_ENDPOINT = 'http://localhost:3000/api/commits';
  * @param {string} authorName
  * @param {string} authorEmail
  * @param {string} date
+ * @param {string} redirectUrl
  */
-async function sendCommitData(commitMessage, commitHash, authorName, authorEmail, date) {
+async function sendCommitData(commitMessage, commitHash, authorName, authorEmail, date, redirectUrl) {
   try {
     if(!commitMessage) {
       throw new Error('Missing "commitMessage".');
@@ -33,12 +34,17 @@ async function sendCommitData(commitMessage, commitHash, authorName, authorEmail
       throw new Error('Missing "date".');
     }
 
+    if(!redirectUrl) {
+      throw new Error('Missing "redirectUrl".');
+    }
+
     const commitData = {
       commitMessage,
       commitHash,
       authorName,
       authorEmail,
       date: date.split(' ').slice(0, 2).join(' '),
+      redirectUrl: redirectUrl.replace('.git', '').concat(`/commit/${commitHash}`),
     };
 
     const shortCommitMessage = commitMessage.length > 25 ? commitMessage.substring(0, 25).concat('...') : commitMessage
@@ -51,6 +57,7 @@ async function sendCommitData(commitMessage, commitHash, authorName, authorEmail
       chalk.yellow(commitHash),
       chalk.green('submitted successfully.'),
     );
+    console.info(chalk.cyan(chalk.underline(commitData.redirectUrl)));
   } catch (err) {
     console.error(chalk.red(`An error occurred when submitting commit ${commitHash}:`));
 
@@ -70,5 +77,6 @@ const commitMessage = process.argv[3];
 const authorName = process.argv[4];
 const authorEmail = process.argv[5];
 const date = process.argv[6];
+const redirectUrl = process.argv[7];
 
-sendCommitData(commitMessage, commitHash, authorName, authorEmail, date);
+sendCommitData(commitMessage, commitHash, authorName, authorEmail, date, redirectUrl);

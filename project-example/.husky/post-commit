@@ -6,6 +6,7 @@ commit_message=$(git log -1 --pretty=%B)
 commit_author_name=$(git log -1 --pretty=%an)
 commit_author_email=$(git log -1 --pretty=%ae)
 commit_date=$(git log -1 --pretty=%ci)
+commit_redirect_url=$(git config --get remote.origin.url)
 
 cd project-example
-node sendCommitData "$commit_hash" "$commit_message" "$commit_author_name" "$commit_author_email" "$commit_date"
+node sendCommitData "$commit_hash" "$commit_message" "$commit_author_name" "$commit_author_email" "$commit_date" "$commit_redirect_url"
