@@ -72,11 +72,6 @@ async function sendCommitData(commitMessage, commitHash, authorName, authorEmail
   }
 }
 
-const commitHash = process.argv[2];
-const commitMessage = process.argv[3];
-const authorName = process.argv[4];
-const authorEmail = process.argv[5];
-const date = process.argv[6];
-const redirectUrl = process.argv[7];
+const [,, commitHash, commitMessage, authorName, authorEmail, date, redirectUrl] = process.argv;
 
 sendCommitData(commitMessage, commitHash, authorName, authorEmail, date, redirectUrl);

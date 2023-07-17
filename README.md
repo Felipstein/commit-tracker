@@ -1,5 +1,4 @@
 # TODO:
-- Enviar com os dados do commit informações do autor (nome e e-mail).
 - Categorizar os commits por autores.
 - Categorizar os commits por commits que já foram enviados e não.
 - Criar o botão submit para enviar os dados dos commits ao slack.
