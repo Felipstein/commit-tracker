@@ -38,7 +38,7 @@ async function sendCommitData(commitMessage, commitHash) {
   }
 }
 
-const commitMessage = process.argv[2];
-const commitHash = process.argv[3];
+const commitHash = process.argv[2];
+const commitMessage = process.argv[3];
 
 sendCommitData(commitMessage, commitHash);
