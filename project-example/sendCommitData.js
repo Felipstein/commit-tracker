@@ -6,9 +6,11 @@ const MAIN_APP_ENDPOINT = 'http://localhost:3000/api/commits';
 /**
  * Send the commit data to the main app
  * @param {string} commitMessage 
- * @param {string} commitHash 
+ * @param {string} commitHash
+ * @param {string} author
+ * @param {string} date
  */
-async function sendCommitData(commitMessage, commitHash) {
+async function sendCommitData(commitMessage, commitHash, author, date) {
   try {
     if(!commitMessage) {
       throw new Error('Missing "commitMessage".');
@@ -18,7 +20,20 @@ async function sendCommitData(commitMessage, commitHash) {
       throw new Error('Missing "commitHash".');
     }
 
-    const commitData = { commitMessage, commitHash };
+    if(!author) {
+      throw new Error('Missing "author".');
+    }
+
+    if(!date) {
+      throw new Error('Missing "date".');
+    }
+
+    const commitData = {
+      commitMessage,
+      commitHash,
+      author,
+      date: date.split(' ').slice(0, 2).join(' '),
+    };
 
     const shortCommitMessage = commitMessage.length > 25 ? commitMessage.substring(0, 25).concat('...') : commitMessage
     console.info(chalk.gray(`\nSubmitting commit ${commitHash} (${shortCommitMessage})`));
@@ -46,5 +61,7 @@ async function sendCommitData(commitMessage, commitHash) {
 
 const commitHash = process.argv[2];
 const commitMessage = process.argv[3];
+const author = process.argv[4];
+const date = process.argv[5];
 
-sendCommitData(commitMessage, commitHash);
+sendCommitData(commitMessage, commitHash, author, date);
