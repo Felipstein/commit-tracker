@@ -1,6 +1,10 @@
+import { CommitsList } from "@/components/commits/CommitsList";
+
 export default function HomePage() {
 
   return (
-    <h1>Home Page</h1>
+    <div className="min-h-screen flex items-center justify-center">
+      <CommitsList />
+    </div>
   );
 }
