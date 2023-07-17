@@ -1,11 +1,18 @@
 import { Commit } from "@prisma/client";
 import { CommitCard } from "./CommitCard";
+import { CommitsEmpty } from "./CommitsEmpty";
 
 export interface CommitsListProps {
   commits: Commit[],
 }
 
 export function CommitsList({ commits }: CommitsListProps) {
+
+  if(commits.length === 0) {
+    return (
+      <CommitsEmpty />
+    );
+  }
 
   return (
     <div className="flow-root">
