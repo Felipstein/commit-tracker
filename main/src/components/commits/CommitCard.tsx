@@ -14,7 +14,10 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
       )}
 
       {/* Content */}
-      <div className="relative flex items-center space-x-3">
+      <button
+        type="button"
+        className="relative flex items-center space-x-3"
+      >
 
         {/* Left Circle */}
         <div>
@@ -27,17 +30,17 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
 
         {/* Right Content */}
         <div className="min-w-0 flex-1">
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col items-start gap-1">
             <span className="text-sm font-medium text-gray-900">
               {commit.message}
             </span>
 
-            <span className="text-xs font-medium text-gray-900">
+            <span className="text-xs font-medium text-gray-400">
               {commit.hash}
             </span>
           </div>
         </div>
-      </div>
+      </button>
     </div>
   );
 }
