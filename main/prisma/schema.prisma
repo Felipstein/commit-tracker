@@ -15,6 +15,7 @@ model Commit {
   authorEmail String
   isSubmitted Boolean  @default(false)
   committedAt DateTime @default(now())
+  redirectUrl String
 
   @@map("commits")
 }
