@@ -5,16 +5,17 @@ import { z } from "zod";
 const commitDataSchema = z.object({
   commitHash: z.string().nonempty('commitHash is required.'),
   commitMessage: z.string().nonempty('commitMessage is required.'),
-  authorName: z.string().nonempty('Author Name is required.'),
-  authorEmail: z.string().nonempty('Author E-mail is required.'),
-  redirectUrl: z.string().nonempty('Commit URL redirect is required.'),
+  authorName: z.string().nonempty('authorName is required.'),
+  authorEmail: z.string().nonempty('authorEmail is required.'),
+  date: z.string().nonempty('date is required.'),
+  redirectUrl: z.string().nonempty('redirectUrl is required.'),
 });
 
 export async function POST(req: NextRequest) {
   const json = await req.json();
 
   const {
-    commitHash, commitMessage, authorName, authorEmail, redirectUrl
+    commitHash, commitMessage, authorName, authorEmail, date: committedAt, redirectUrl
   } = commitDataSchema.parse(json);
 
   const hashAlreadyExists = await prisma.commit.findUnique({
@@ -31,6 +32,7 @@ export async function POST(req: NextRequest) {
       message: commitMessage,
       authorName,
       authorEmail,
+      committedAt,
       redirectUrl,
     },
   });
