@@ -9,8 +9,8 @@ const sendCommitDataSchema = z.object({
   commitHash: z.string().nonempty('Missing "commitHash"'),
   authorName: z.string().nonempty('Missing "authorName"'),
   authorEmail: z.string().nonempty('Missing "authorEmail"'),
-  date: z.string().nonempty('Missing "date"'),
-  redirectUrl: z.string().nonempty('Missing "redirectUrl"'),
+  date: z.string().nonempty('Missing "date"').transform(date => date.split(' ').slice(0, 2).join(' ')),
+  redirectUrl: z.string().nonempty('Missing "redirectUrl"').transform(redirectUrl => redirectUrl.replace('.git', '').concat('/commit/{{commitHash}}')),
 });
 
 /**
@@ -35,8 +35,8 @@ async function sendCommitData(sendCommitDataRequest) {
       commitHash,
       authorName,
       authorEmail,
-      date: date.split(' ').slice(0, 2).join(' '),
-      redirectUrl: redirectUrl.replace('.git', '').concat(`/commit/${commitHash}`),
+      date,
+      redirectUrl: redirectUrl.replace('{{commitHash}}', commitHash),
     };
 
     const shortCommitMessage = commitMessage.length > 25 ? commitMessage.substring(0, 25).concat('...') : commitMessage
@@ -49,7 +49,7 @@ async function sendCommitData(sendCommitDataRequest) {
       chalk.yellow(commitHash),
       chalk.green('submitted successfully.'),
     );
-    console.info(chalk.cyan(chalk.underline(commitData.redirectUrl)));
+    console.info(chalk.cyan(chalk.underline(`${commitData.redirectUrl}\n`)));
   } catch (err) {
     console.error(chalk.red(`An error occurred when submitting commit ${commitHash}:`));
 
