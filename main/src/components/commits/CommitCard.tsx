@@ -1,4 +1,7 @@
 import { Commit } from "@prisma/client";
+import { Clock4 } from "lucide-react";
+import moment from "moment";
+import Link from "next/link";
 
 export interface CommitCardProps {
   commit: Commit,
@@ -14,10 +17,7 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
       )}
 
       {/* Content */}
-      <button
-        type="button"
-        className="relative flex items-center space-x-3"
-      >
+      <div className="relative flex items-center space-x-3">
 
         {/* Left Circle */}
         <div>
@@ -35,12 +35,24 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
               {commit.message}
             </span>
 
-            <span className="text-xs font-medium text-gray-400">
-              {commit.hash}
-            </span>
+            <footer className="flex items-end gap-2.5">
+              <span className="text-xs text-gray-400">
+                committed by{' '}
+                  <strong className="font-medium text-gray-700 hover:text-gray-900 hover:underline">
+                    <Link href={`https://github.com/${commit.authorName}`} target="_blank">
+                      {commit.authorName}
+                    </Link>
+                  </strong>
+              </span>
+
+              <time className="text-[10px] text-gray-400 flex items-center gap-1">
+                <Clock4 className="w-3 h-3" />
+                {moment(commit.committedAt).fromNow()}
+              </time>
+            </footer>
           </div>
         </div>
-      </button>
+      </div>
     </div>
   );
 }
