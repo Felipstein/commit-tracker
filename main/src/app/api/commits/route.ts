@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       message: commitMessage,
       authorName,
       authorEmail,
-      committedAt,
+      committedAt: new Date(committedAt),
       redirectUrl,
     },
   });

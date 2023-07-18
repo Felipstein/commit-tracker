@@ -1,42 +1,34 @@
 const axios = require('axios');
 const chalk = require('chalk');
+const { z } = require('zod');
 
 const MAIN_APP_ENDPOINT = 'http://localhost:3000/api/commits';
 
+const sendCommitDataSchema = z.object({
+  commitMessage: z.string().nonempty('Missing "commitMessage"'),
+  commitHash: z.string().nonempty('Missing "commitHash"'),
+  authorName: z.string().nonempty('Missing "authorName"'),
+  authorEmail: z.string().nonempty('Missing "authorEmail"'),
+  date: z.string().nonempty('Missing "date"'),
+  redirectUrl: z.string().nonempty('Missing "redirectUrl"'),
+});
+
 /**
  * Send the commit data to the main app
- * @param {string} commitMessage 
- * @param {string} commitHash
- * @param {string} authorName
- * @param {string} authorEmail
- * @param {string} date
- * @param {string} redirectUrl
+ * @param {{
+ *  commitMessage: string,
+ *  commitHash: string,
+ *  authorName: string,
+ *  authorEmail: string,
+ *  date: string,
+ *  redirectUrl: string,
+ * }} sendCommitDataRequest
  */
-async function sendCommitData(commitMessage, commitHash, authorName, authorEmail, date, redirectUrl) {
+async function sendCommitData(sendCommitDataRequest) {
   try {
-    if(!commitMessage) {
-      throw new Error('Missing "commitMessage".');
-    }
-
-    if(!commitHash) {
-      throw new Error('Missing "commitHash".');
-    }
-
-    if(!authorName) {
-      throw new Error('Missing "authorName".');
-    }
-
-    if(!authorEmail) {
-      throw new Error('Missing "authorEmail".');
-    }
-
-    if(!date) {
-      throw new Error('Missing "date".');
-    }
-
-    if(!redirectUrl) {
-      throw new Error('Missing "redirectUrl".');
-    }
+    const {
+      commitMessage, commitHash, authorName, authorEmail, date, redirectUrl,
+    } = sendCommitDataSchema.parse(sendCommitDataRequest);
 
     const commitData = {
       commitMessage,
@@ -72,11 +64,13 @@ async function sendCommitData(commitMessage, commitHash, authorName, authorEmail
   }
 }
 
-const commitHash = process.argv[2];
-const commitMessage = process.argv[3];
-const authorName = process.argv[4];
-const authorEmail = process.argv[5];
-const date = process.argv[6];
-const redirectUrl = process.argv[7];
+const [,, commitHash, commitMessage, authorName, authorEmail, date, redirectUrl] = process.argv;
 
-sendCommitData(commitMessage, commitHash, authorName, authorEmail, date, redirectUrl);
+sendCommitData({
+  commitHash,
+  commitMessage,
+  authorName,
+  authorEmail,
+  date,
+  redirectUrl,
+});
