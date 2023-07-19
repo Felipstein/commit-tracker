@@ -2,6 +2,7 @@ import { Commit } from "@prisma/client";
 import { Clock4 } from "lucide-react";
 import moment from "moment";
 import Link from "next/link";
+import { GithubAvatar } from "../GithubAvatar";
 
 export interface CommitCardProps {
   commit: Commit,
@@ -13,7 +14,7 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
   return (
     <div className="relative pb-8">
       {!isLast && (
-        <span className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-zinc-200 dark:bg-zinc-700" aria-hidden="true" />
+        <span className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-zinc-200 dark:bg-zinc-800" aria-hidden="true" />
       )}
 
       {/* Content */}
@@ -22,9 +23,7 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
         {/* Left Circle */}
         <div>
           <div className="relative px-1">
-            <div className="h-8 w-8 bg-zinc-100 dark:bg-zinc-900 rounded-full flex items-center justify-center">
-              <div className='w-5 h-5 text-zinc-500 dark:text-zinc-800' />
-            </div>
+            <GithubAvatar username={commit.authorName} />
           </div>
         </div>
 

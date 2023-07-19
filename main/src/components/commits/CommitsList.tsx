@@ -16,7 +16,7 @@ export function CommitsList({ commits }: CommitsListProps) {
 
   return (
     <div className="flow-root">
-      <ul role="list" className="-mb-8">
+      <ul role="list" className="-mb-8 max-w-[400px]">
 
         {commits.map((commit, index) => (
           <li key={commit.id}>
