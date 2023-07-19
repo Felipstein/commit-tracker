@@ -1,7 +1,7 @@
 export function CommitsEmpty() {
 
   return (
-    <div className="text-gray-400">
+    <div className="text-zinc-400 dark:text-zinc-600">
       <span>Nenhum commit registrado ainda...</span>
     </div>
   );

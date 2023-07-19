@@ -13,7 +13,7 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
   return (
     <div className="relative pb-8">
       {!isLast && (
-        <span className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
+        <span className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-zinc-200 dark:bg-zinc-700" aria-hidden="true" />
       )}
 
       {/* Content */}
@@ -22,36 +22,40 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
         {/* Left Circle */}
         <div>
           <div className="relative px-1">
-            <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-              <div className='w-5 h-5 text-gray-500' />
+            <div className="h-8 w-8 bg-zinc-100 dark:bg-zinc-900 rounded-full flex items-center justify-center">
+              <div className='w-5 h-5 text-zinc-500 dark:text-zinc-800' />
             </div>
           </div>
         </div>
 
         {/* Right Content */}
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-col items-start gap-1">
-            <span className="text-sm font-medium text-gray-900">
+        <Link
+          href={commit.redirectUrl}
+          target="_blank"
+          className="flex-1 hover:bg-zinc-100 dark:hover:bg-zinc-900/20 rounded-md p-2 w-96"
+        >
+          <div className="flex flex-col items-start gap-1 truncate">
+            <span className="text-sm font-medium text-zinc-900 dark:text-zinc-50 truncate">
               {commit.message}
             </span>
 
             <footer className="flex items-end gap-2.5">
-              <span className="text-xs text-gray-400">
+              <span className="text-xs text-zinc-400 dark:text-zinc-600">
                 committed by{' '}
-                  <strong className="font-medium text-gray-700 hover:text-gray-900 hover:underline">
+                  <strong className="font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
                     <Link href={`https://github.com/${commit.authorName}`} target="_blank">
                       {commit.authorName}
                     </Link>
                   </strong>
               </span>
 
-              <time className="text-[10px] text-gray-400 flex items-center gap-1">
+              <time className="text-[10px] text-zinc-400 dark:text-zinc-600 flex items-center gap-1">
                 <Clock4 className="w-3 h-3" />
                 {moment(commit.committedAt).fromNow()}
               </time>
             </footer>
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   );
