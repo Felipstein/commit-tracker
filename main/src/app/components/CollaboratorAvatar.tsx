@@ -44,7 +44,7 @@ export function CollaboratorAvatar({ username, onSelect, onCancelSelection, clas
           <span className="text-zinc-300">
             {!isSelected && (
               <>
-                Filtrar by <strong className="text-zinc-50">{username}</strong>
+                Filter by <strong className="text-zinc-50">{username}</strong>
               </>
             )}
 
