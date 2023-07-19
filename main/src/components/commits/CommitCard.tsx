@@ -23,7 +23,7 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
         {/* Left Circle */}
         <div>
           <div className="relative px-1">
-            <GithubAvatar username={commit.authorName} />
+            <GithubAvatar clientSide username={commit.authorName} />
           </div>
         </div>
 

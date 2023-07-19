@@ -3,12 +3,17 @@
 import { useMemo, useState } from "react";
 import { CollaboratorAvatar } from "./CollaboratorAvatar";
 import { cn } from "@/lib/utils";
+import { useCommitsFilterStore } from "@/stores/CommitsFilterStore";
 
 export interface CollaboratorsListProps {
   usernames: string[],
 }
 
 export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
+
+  const setByUsername = useCommitsFilterStore((s) => s.setByUsername);
+  const removeByUsername = useCommitsFilterStore((s) => s.removeByUsername);
+
   const [showAll, setShowAll] = useState(false);
   const [userSelected, setUserSelected] = useState<string | null>(null);
 
@@ -24,10 +29,12 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
 
   function handleSelectUsername(username: string) {
     setUserSelected(username);
+    setByUsername(username);
   }
 
   function handleCancelSelection() {
     setUserSelected(null);
+    removeByUsername();
   }
 
   return (
@@ -44,7 +51,7 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
         )}
       </header>
 
-      <ul className="relative group/avatar flex items-center w-full">
+      <ul className="group/avatar flex items-center w-full">
 
         {usernamesList.map((username, index) => (
           <li key={username}>
