@@ -24,6 +24,12 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
         <h3 className="text-sm text-zinc-400 dark:text-zinc-700">
           Collaborators ({usernames.length})
         </h3>
+
+        {userSelected && (
+          <span className="text-xs text-zinc-300 dark:text-zinc-800">
+            Filtering by {userSelected}
+          </span>
+        )}
       </header>
 
       <ul className="group flex items-center">

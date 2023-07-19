@@ -31,7 +31,7 @@ export function CollaboratorAvatar({ username, onSelect, onCancelSelection, clas
               className={cn(
                 "w-14 h-14 p-1.5 bg-zinc-50 dark:bg-zinc-950 transition-all group-hover:saturate-50 group-hover:scale-110 hover:!saturate-100 hover:!scale-125",
                 {
-                  "scale-125": isSelected,
+                  "!scale-125 !saturate-100": isSelected,
                   "saturate-[0.25]": isNotSelected,
                 },
                 className,
@@ -44,13 +44,13 @@ export function CollaboratorAvatar({ username, onSelect, onCancelSelection, clas
           <span className="text-zinc-300">
             {!isSelected && (
               <>
-                Filtrar por commits de <strong className="text-zinc-50">{username}</strong>
+                Filtrar by <strong className="text-zinc-50">{username}</strong>
               </>
             )}
 
             {isSelected && (
               <>
-                Cancelar filtro de<strong className="text-zinc-50">{username}</strong>
+                Cancel filter of <strong className="text-zinc-50">{username}</strong>
               </>
             )}
           </span>
