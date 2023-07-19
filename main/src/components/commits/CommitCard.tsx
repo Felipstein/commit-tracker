@@ -2,7 +2,7 @@ import { Commit } from "@prisma/client";
 import { Clock4 } from "lucide-react";
 import moment from "moment";
 import Link from "next/link";
-import { GithubAvatar } from "../GithubAvatar";
+import { GithubAvatar } from "../GithugAvatar";
 
 export interface CommitCardProps {
   commit: Commit,
