@@ -29,12 +29,18 @@ export function CollaboratorAvatar({ username, onSelect, onCancelSelection, clas
               width={64}
               height={64}
               className={cn(
-                "w-14 h-14 p-1.5 bg-zinc-50 dark:bg-zinc-950 transition-all group-hover:saturate-50 group-hover:scale-110 hover:!saturate-100 hover:!scale-125",
+                "w-14 h-14 p-1.5 bg-zinc-50 dark:bg-zinc-950 transition-all group-hover/avatar:saturate-50 group-hover/avatar:scale-110 hover:!saturate-100 hover:!scale-125",
                 {
                   "!scale-125 !saturate-100": isSelected,
                   "saturate-[0.25]": isNotSelected,
                 },
                 className,
+              )}
+              classNameForImage={cn(
+                "border-2 border-transparent",
+                {
+                  "border-zinc-800 dark:border-zinc-200": isSelected,
+                },
               )}
             />
           </button>
