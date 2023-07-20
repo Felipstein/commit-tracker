@@ -37,7 +37,7 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
         <Link
           href={commit.redirectUrl}
           target="_blank"
-          className="w-96 flex-1 rounded-md p-2 hover:bg-zinc-100 dark:hover:bg-zinc-900/20"
+          className="w-full flex-1 rounded-md p-2 hover:bg-zinc-100 dark:hover:bg-zinc-900/20"
         >
           <div className="flex flex-col items-start gap-1 truncate">
             <span className="truncate text-sm font-medium text-zinc-900 dark:text-zinc-50">

@@ -21,22 +21,33 @@ export function CommitsList({ commits }: CommitsListProps) {
     [commits, byUsername],
   )
 
-  if (commits.length === 0) {
-    return <CommitsEmpty />
-  }
-
   return (
-    <div className="flow-root">
-      <ul role="list" className="-mb-8 max-w-[400px]">
-        {commitsFiltered.map((commit, index) => (
-          <li key={commit.id}>
-            <CommitCard
-              commit={commit}
-              isLast={index === commitsFiltered.length - 1}
-            />
-          </li>
-        ))}
-      </ul>
+    <div className="flow-root w-96">
+      {commits.length === 0 && (
+        <CommitsEmpty />
+      )}
+
+      {commits.length > 0 && commitsFiltered.length === 0 && (
+        <CommitsEmpty.Root>
+          <CommitsEmpty.Label>
+            No commits recoreded by <strong className='font-semibold text-zinc-500 dark:text-zinc-300'>{byUsername}</strong> yet
+          </CommitsEmpty.Label>
+        </CommitsEmpty.Root>
+      )}
+
+      {commitsFiltered.length > 0 && (
+        <ul role="list" className="-mb-8 w-full">
+          {commitsFiltered.map((commit, index) => (
+            <li key={commit.id}>
+              <CommitCard
+                commit={commit}
+                isLast={index === commitsFiltered.length - 1}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
+      
     </div>
   )
 }

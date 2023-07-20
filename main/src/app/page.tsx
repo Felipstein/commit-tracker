@@ -127,7 +127,7 @@ export default async function HomePage() {
       committedAt: new Date('2023-07-19T00:25:42.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/032365222fb9004a6d2fa6ba6d76dbd32e176f3f',
-      commitsSubmitId: null,
+      commitsSubmitId: 'blablabla',
     },
     {
       id: 'aaaa',
@@ -138,7 +138,7 @@ export default async function HomePage() {
       committedAt: new Date('2023-07-19T01:36:12.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/725a02ee8d73b8da6d7226f87cea532a693f65a7',
-      commitsSubmitId: null,
+      commitsSubmitId: 'blablabla',
     },
     {
       id: 'dwadawdawdawdawdwa',
@@ -149,7 +149,7 @@ export default async function HomePage() {
       committedAt: new Date('2023-07-17T22:28:39.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/e75089a214d5c56737e07bcfaa666180686c69f6',
-      commitsSubmitId: null,
+      commitsSubmitId: 'blablabla',
     },
     {
       id: 'dwadwafawfaw',
@@ -208,6 +208,8 @@ export default async function HomePage() {
     },
   ]
 
+  const unsubmittedCommits = commits.filter(commit => !commit.commitsSubmitId)
+
   const users = Array.from(new Set(commits.map((commit) => commit.authorName)))
 
   return (
@@ -220,12 +222,12 @@ export default async function HomePage() {
         <main className="relative m-auto flex w-fit items-start gap-20">
           {/* Left Content */}
           <ScrollArea className="h-[70vh] w-full">
-            <CommitsList commits={commits} />
+            <CommitsList commits={unsubmittedCommits} />
           </ScrollArea>
 
           {/* Right Content */}
           <SubmitCommits
-            totalCommits={commits.length}
+            totalCommits={unsubmittedCommits.length}
           />
         </main>
       </div>
