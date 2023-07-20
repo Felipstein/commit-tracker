@@ -22,7 +22,7 @@ export default async function HomePage() {
 
         <main className="relative m-auto flex w-fit items-start gap-20">
           {/* Left Content */}
-          <ScrollArea className="h-[70vh] w-full">
+          <ScrollArea className="h-[60vh] w-full">
             <CommitsList commits={commits} />
           </ScrollArea>
 
