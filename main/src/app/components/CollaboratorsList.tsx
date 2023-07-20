@@ -36,15 +36,17 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
     removeByUsername()
   }
 
-  if(usernames.length === 0) {
-    return null;
+  if (usernames.length === 0) {
+    return null
   }
 
   return (
     <div className="w-full space-y-2">
       <header className="flex items-center gap-2.5">
         <h3 className="text-sm text-zinc-400 dark:text-zinc-700">
-          {usernames.length > 1 ? `Collaborators (${usernames.length})` : 'Collaborator'}
+          {usernames.length > 1
+            ? `Collaborators (${usernames.length})`
+            : 'Collaborator'}
         </h3>
 
         {userSelected && (

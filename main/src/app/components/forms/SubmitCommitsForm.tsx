@@ -1,59 +1,66 @@
-"use client"
+'use client'
 
-import { useForm } from "react-hook-form";
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { exportCommitsToJson, submitCommitsAction, unsubmitCommitsAction } from "@/app/actions/submit-commits.action";
-import { useToast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast";
-import { Commit } from "@prisma/client";
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Textarea } from '@/components/ui/textarea'
+import { Button } from '@/components/ui/button'
+import {
+  exportCommitsToJson,
+  submitCommitsAction,
+  unsubmitCommitsAction,
+} from '@/app/actions/submit-commits.action'
+import { useToast } from '@/components/ui/use-toast'
+import { ToastAction } from '@/components/ui/toast'
+import { Commit } from '@prisma/client'
 
 const submitCommitSchema = z.object({
   description: z.string().optional(),
-});
+})
 
-type SubmitCommitsFormData = z.infer<typeof submitCommitSchema>;
+type SubmitCommitsFormData = z.infer<typeof submitCommitSchema>
 
 export interface SubmitCommitsFormProps {
-  commits: Commit[],
+  commits: Commit[]
 }
 
 export function SubmitCommitsForm({ commits }: SubmitCommitsFormProps) {
-  
   const form = useForm<SubmitCommitsFormData>({
     resolver: zodResolver(submitCommitSchema),
-  });
+  })
 
-  const { toast } = useToast();
-  
+  const { toast } = useToast()
+
   async function submitCommits(data: SubmitCommitsFormData) {
     try {
       await submitCommitsAction({
         description: data.description || null,
-        commitIds: commits.map(commit => commit.id),
-      });
-  
-      toast({
-        description: "Commits submitted!",
-      });
+        commitIds: commits.map((commit) => commit.id),
+      })
 
-      form.setValue('description', '');
+      toast({
+        description: 'Commits submitted!',
+      })
+
+      form.setValue('description', '')
     } catch (err: any) {
       toast({
-        title: "There was a problem with your submit request.",
-        description: err.message ?? "Unknown error",
+        title: 'There was a problem with your submit request.',
+        description: err.message ?? 'Unknown error',
         action: (
-          <ToastAction
-            altText="try-again"
-            onClick={() => submitCommits(data)}
-          >
+          <ToastAction altText="try-again" onClick={() => submitCommits(data)}>
             Try Again
           </ToastAction>
         ),
-      });
+      })
     }
   }
 
@@ -69,13 +76,9 @@ export function SubmitCommitsForm({ commits }: SubmitCommitsFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="flex items-center gap-2">
-                <span className="opacity-80 leading-relaxed">
-                  Description
-                </span>
+                <span className="opacity-80 leading-relaxed">Description</span>
 
-                <small className="text-xs opacity-20">
-                  optional
-                </small>
+                <small className="text-xs opacity-20">optional</small>
               </FormLabel>
 
               <FormControl>
@@ -101,21 +104,21 @@ export function SubmitCommitsForm({ commits }: SubmitCommitsFormProps) {
 
           {process.env.NODE_ENV === 'development' && (
             <>
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={() => exportCommitsToJson()}
-            >
-              Export all (DEBUG)
-            </Button>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => exportCommitsToJson()}
+              >
+                Export all (DEBUG)
+              </Button>
 
-            <Button
-              type="button"
-              variant="destructive"
-              onClick={() => unsubmitCommitsAction()}
-            >
-              Unsubmitt all (DEBUG)
-            </Button>
+              <Button
+                type="button"
+                variant="destructive"
+                onClick={() => unsubmitCommitsAction()}
+              >
+                Unsubmitt all (DEBUG)
+              </Button>
             </>
           )}
         </footer>

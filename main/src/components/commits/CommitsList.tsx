@@ -23,14 +23,16 @@ export function CommitsList({ commits }: CommitsListProps) {
 
   return (
     <div className="flow-root w-96">
-      {commits.length === 0 && (
-        <CommitsEmpty />
-      )}
+      {commits.length === 0 && <CommitsEmpty />}
 
       {commits.length > 0 && commitsFiltered.length === 0 && (
         <CommitsEmpty.Root>
           <CommitsEmpty.Label>
-            No commits recoreded by <strong className='font-semibold text-zinc-500 dark:text-zinc-300'>{byUsername}</strong> yet
+            No commits recoreded by{' '}
+            <strong className="font-semibold text-zinc-500 dark:text-zinc-300">
+              {byUsername}
+            </strong>{' '}
+            yet
           </CommitsEmpty.Label>
         </CommitsEmpty.Root>
       )}
@@ -47,7 +49,6 @@ export function CommitsList({ commits }: CommitsListProps) {
           ))}
         </ul>
       )}
-      
     </div>
   )
 }
