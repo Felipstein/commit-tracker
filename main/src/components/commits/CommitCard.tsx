@@ -18,12 +18,17 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
       )}
 
       {/* Content */}
-      <div className="relative flex items-center space-x-3">
+      <div className="relative flex items-center space-x-2">
 
         {/* Left Circle */}
         <div>
-          <div className="relative px-1">
-            <GithubAvatar clientSide username={commit.authorName} />
+          <div className="relative px-1 hover:scale-110 transition-transform">
+            <Link
+              href={`https://github.com/${commit.authorName}`}
+              target="_blank"
+            >
+              <GithubAvatar clientSide username={commit.authorName} />
+            </Link>
           </div>
         </div>
 
@@ -41,10 +46,8 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
             <footer className="flex items-end gap-2.5">
               <span className="text-xs text-zinc-400 dark:text-zinc-600">
                 committed by{' '}
-                  <strong className="font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
-                    <Link href={`https://github.com/${commit.authorName}`} target="_blank">
-                      {commit.authorName}
-                    </Link>
+                  <strong className="font-medium text-zinc-700 dark:text-zinc-300">
+                    {commit.authorName}
                   </strong>
               </span>
 

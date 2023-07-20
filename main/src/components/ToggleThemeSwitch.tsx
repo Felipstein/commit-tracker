@@ -2,11 +2,22 @@
 
 import { useTheme } from "next-themes";
 import { Switch } from "./ui/switch";
+
 import { LightbulbIcon, MoonIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export function ToggleThemeSwitch() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  } ,[]);
 
   const { theme, setTheme } = useTheme();
+
+  if(!mounted) {
+    return null;
+  }
 
   return (
     <div className="flex items-center gap-2">

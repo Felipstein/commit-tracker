@@ -22,7 +22,6 @@ export function GithubAvatarClientSide({ username, width, height, className, cla
     },
   );
 
-
   return (
     <GithubAvatarPresentational.Root className={className}>
       {isLoading && (
