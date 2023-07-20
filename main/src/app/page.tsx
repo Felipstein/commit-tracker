@@ -3,20 +3,21 @@ import { prisma } from '@/lib/prisma'
 import { CollaboratorsList } from './components/CollaboratorsList'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { SubmitCommits } from './components/SubmitCommits'
+import { Commit } from '@prisma/client'
 
 export default async function HomePage() {
   // const commits = await prisma.commit.findMany();
-  const commits = [
+  const commits: Commit[] = [
     {
       id: 'clk7ftcg40000jx06v5939o9r',
       hash: 'e75089a214d5c56737e07bcfaa666180686c69f6',
       message: 'feat: add to schema (on main app) redirect url',
       authorName: 'Felipstein',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-17T22:28:39.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/e75089a214d5c56737e07bcfaa666180686c69f6',
+      commitsSubmitId: null,
     },
     {
       id: 'abababab',
@@ -24,10 +25,10 @@ export default async function HomePage() {
       message: 'fix: get date from string',
       authorName: 'matheuzinoficial',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-17T22:32:29.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/a48a1f0f0c352c55524bcf05df57be21ec012363',
+      commitsSubmitId: null,
     },
     {
       id: 'sdsdsdsds',
@@ -35,10 +36,10 @@ export default async function HomePage() {
       message: 'docs: add missing todo',
       authorName: 'Yanzaum',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-17T22:32:50.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/3539b0edf3919f12df270fe47233597fc6a5ba12',
+      commitsSubmitId: null,
     },
     {
       id: 'aawdwadawda',
@@ -46,10 +47,10 @@ export default async function HomePage() {
       message: '🌈 style: apply dark theme',
       authorName: 'lucafrederice',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-19T00:25:27.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/da2e512b6a274c367d6d442cdb4ee29a421e91c2',
+      commitsSubmitId: null,
     },
     {
       id: 'dwadawgeagtretgergereh',
@@ -57,10 +58,10 @@ export default async function HomePage() {
       message: 'chore: add some libs',
       authorName: 'daltonmenezes',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-19T00:25:42.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/032365222fb9004a6d2fa6ba6d76dbd32e176f3f',
+      commitsSubmitId: null,
     },
     {
       id: 'dawdvxdfgrdgr',
@@ -68,10 +69,10 @@ export default async function HomePage() {
       message: '✨ feat: add collaborators list',
       authorName: 'cleitonsouza',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-19T01:36:12.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/725a02ee8d73b8da6d7226f87cea532a693f65a7',
+      commitsSubmitId: null,
     },
     {
       id: 'dawdfgsgrsdgrgrd',
@@ -79,10 +80,10 @@ export default async function HomePage() {
       message: 'feat: add to schema (on main app) redirect url',
       authorName: 'Felipstein',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-17T22:28:39.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/e75089a214d5c56737e07bcfaa666180686c69f6',
+      commitsSubmitId: null,
     },
     {
       id: 'atreytrehy',
@@ -90,10 +91,10 @@ export default async function HomePage() {
       message: 'fix: get date from string',
       authorName: 'matheuzinoficial',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-17T22:32:29.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/a48a1f0f0c352c55524bcf05df57be21ec012363',
+      commitsSubmitId: null,
     },
     {
       id: 'ggdhnfhfthtrf',
@@ -101,10 +102,10 @@ export default async function HomePage() {
       message: 'docs: add missing todo',
       authorName: 'Yanzaum',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-17T22:32:50.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/3539b0edf3919f12df270fe47233597fc6a5ba12',
+      commitsSubmitId: null,
     },
     {
       id: 'fahftgh',
@@ -112,10 +113,10 @@ export default async function HomePage() {
       message: '🌈 style: apply dark theme',
       authorName: 'lucafrederice',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-19T00:25:27.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/da2e512b6a274c367d6d442cdb4ee29a421e91c2',
+      commitsSubmitId: null,
     },
     {
       id: 'abbb',
@@ -123,10 +124,10 @@ export default async function HomePage() {
       message: 'chore: add some libs',
       authorName: 'guilhermecapitao',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-19T00:25:42.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/032365222fb9004a6d2fa6ba6d76dbd32e176f3f',
+      commitsSubmitId: null,
     },
     {
       id: 'aaaa',
@@ -134,10 +135,10 @@ export default async function HomePage() {
       message: '✨ feat: add collaborators list',
       authorName: 'Felipstein',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-19T01:36:12.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/725a02ee8d73b8da6d7226f87cea532a693f65a7',
+      commitsSubmitId: null,
     },
     {
       id: 'dwadawdawdawdawdwa',
@@ -145,10 +146,10 @@ export default async function HomePage() {
       message: 'feat: add to schema (on main app) redirect url',
       authorName: 'maateusilva',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-17T22:28:39.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/e75089a214d5c56737e07bcfaa666180686c69f6',
+      commitsSubmitId: null,
     },
     {
       id: 'dwadwafawfaw',
@@ -156,10 +157,10 @@ export default async function HomePage() {
       message: 'fix: get date from string',
       authorName: 'matheuzinoficial',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-17T22:32:29.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/a48a1f0f0c352c55524bcf05df57be21ec012363',
+      commitsSubmitId: null,
     },
     {
       id: 'bdfbdb',
@@ -167,10 +168,10 @@ export default async function HomePage() {
       message: 'docs: add missing todo',
       authorName: 'Yanzaum',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-17T22:32:50.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/3539b0edf3919f12df270fe47233597fc6a5ba12',
+      commitsSubmitId: null,
     },
     {
       id: 'gawgwa',
@@ -178,10 +179,10 @@ export default async function HomePage() {
       message: '🌈 style: apply dark theme',
       authorName: 'diego3g',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-19T00:25:27.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/da2e512b6a274c367d6d442cdb4ee29a421e91c2',
+      commitsSubmitId: null,
     },
     {
       id: 'dwa',
@@ -189,10 +190,10 @@ export default async function HomePage() {
       message: 'chore: add some libs',
       authorName: 'Matan18',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-19T00:25:42.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/032365222fb9004a6d2fa6ba6d76dbd32e176f3f',
+      commitsSubmitId: null,
     },
     {
       id: 'a',
@@ -200,10 +201,10 @@ export default async function HomePage() {
       message: '✨ feat: add collaborators list',
       authorName: 'MateusHoffman',
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
-      isSubmitted: false,
       committedAt: new Date('2023-07-19T01:36:12.000Z'),
       redirectUrl:
         'https://github.com/Felipstein/commit-tracker/commit/725a02ee8d73b8da6d7226f87cea532a693f65a7',
+      commitsSubmitId: null,
     },
   ]
 
