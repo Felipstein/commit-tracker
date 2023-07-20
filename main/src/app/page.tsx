@@ -1,6 +1,8 @@
 import { CommitsList } from "@/components/commits/CommitsList";
 import { prisma } from "@/lib/prisma";
 import { CollaboratorsList } from "./components/CollaboratorsList";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 
 export default async function HomePage() {
 
@@ -16,7 +18,7 @@ export default async function HomePage() {
       committedAt: new Date('2023-07-17T22:28:39.000Z'),
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/e75089a214d5c56737e07bcfaa666180686c69f6'
     }, {
-      id: 'clk7fyagz0002jx2gcmbmzxek',
+      id: 'abababab',
       hash: 'a48a1f0f0c352c55524bcf05df57be21ec012363',
       message: 'fix: get date from string',
       authorName: 'matheuzinoficial',
@@ -26,7 +28,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/a48a1f0f0c352c55524bcf05df57be21ec012363'
     },
     {
-      id: 'clk7fyqju0003jx2gjb1mfltx',
+      id: 'sdsdsdsds',
       hash: '3539b0edf3919f12df270fe47233597fc6a5ba12',
       message: 'docs: add missing todo',
       authorName: 'Yanzaum',
@@ -36,7 +38,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/3539b0edf3919f12df270fe47233597fc6a5ba12'
     },
     {
-      id: 'clk8zfg4f0000jxps49c48m53',
+      id: 'aawdwadawda',
       hash: 'da2e512b6a274c367d6d442cdb4ee29a421e91c2',
       message: '🌈 style: apply dark theme',
       authorName: 'lucafrederice',
@@ -46,7 +48,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/da2e512b6a274c367d6d442cdb4ee29a421e91c2'
     },
     {
-      id: 'clk8zfqos0001jxpsr22u5ho7',
+      id: 'dwadawgeagtretgergereh',
       hash: '032365222fb9004a6d2fa6ba6d76dbd32e176f3f',
       message: 'chore: add some libs',
       authorName: 'daltonmenezes',
@@ -56,7 +58,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/032365222fb9004a6d2fa6ba6d76dbd32e176f3f'
     },
     {
-      id: 'clk91yfz80000jxvsetljaq4z',
+      id: 'dawdvxdfgrdgr',
       hash: '725a02ee8d73b8da6d7226f87cea532a693f65a7',
       message: '✨ feat: add collaborators list',
       authorName: 'cleitonsouza',
@@ -66,7 +68,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/725a02ee8d73b8da6d7226f87cea532a693f65a7'
     },
     {
-      id: 'clk7ftcg40000jx06v5939o9r',
+      id: 'dawdfgsgrsdgrgrd',
       hash: 'e75089a214d5c56737e07bcfaa666180686c69f6',
       message: 'feat: add to schema (on main app) redirect url',
       authorName: 'Felipstein',
@@ -75,7 +77,7 @@ export default async function HomePage() {
       committedAt: new Date('2023-07-17T22:28:39.000Z'),
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/e75089a214d5c56737e07bcfaa666180686c69f6'
     }, {
-      id: 'clk7fyagz0002jx2gcmbmzxek',
+      id: 'atreytrehy',
       hash: 'a48a1f0f0c352c55524bcf05df57be21ec012363',
       message: 'fix: get date from string',
       authorName: 'matheuzinoficial',
@@ -85,7 +87,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/a48a1f0f0c352c55524bcf05df57be21ec012363'
     },
     {
-      id: 'clk7fyqju0003jx2gjb1mfltx',
+      id: 'ggdhnfhfthtrf',
       hash: '3539b0edf3919f12df270fe47233597fc6a5ba12',
       message: 'docs: add missing todo',
       authorName: 'Yanzaum',
@@ -95,7 +97,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/3539b0edf3919f12df270fe47233597fc6a5ba12'
     },
     {
-      id: 'clk8zfg4f0000jxps49c48m53',
+      id: 'fahftgh',
       hash: 'da2e512b6a274c367d6d442cdb4ee29a421e91c2',
       message: '🌈 style: apply dark theme',
       authorName: 'lucafrederice',
@@ -105,7 +107,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/da2e512b6a274c367d6d442cdb4ee29a421e91c2'
     },
     {
-      id: 'clk8zfqos0001jxpsr22u5ho7',
+      id: 'abbb',
       hash: '032365222fb9004a6d2fa6ba6d76dbd32e176f3f',
       message: 'chore: add some libs',
       authorName: 'guilhermecapitao',
@@ -115,7 +117,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/032365222fb9004a6d2fa6ba6d76dbd32e176f3f'
     },
     {
-      id: 'clk91yfz80000jxvsetljaq4z',
+      id: 'aaaa',
       hash: '725a02ee8d73b8da6d7226f87cea532a693f65a7',
       message: '✨ feat: add collaborators list',
       authorName: 'Felipstein',
@@ -125,7 +127,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/725a02ee8d73b8da6d7226f87cea532a693f65a7'
     },
     {
-      id: 'clk7ftcg40000jx06v5939o9r',
+      id: 'dwadawdawdawdawdwa',
       hash: 'e75089a214d5c56737e07bcfaa666180686c69f6',
       message: 'feat: add to schema (on main app) redirect url',
       authorName: 'maateusilva',
@@ -134,7 +136,7 @@ export default async function HomePage() {
       committedAt: new Date('2023-07-17T22:28:39.000Z'),
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/e75089a214d5c56737e07bcfaa666180686c69f6'
     }, {
-      id: 'clk7fyagz0002jx2gcmbmzxek',
+      id: 'dwadwafawfaw',
       hash: 'a48a1f0f0c352c55524bcf05df57be21ec012363',
       message: 'fix: get date from string',
       authorName: 'matheuzinoficial',
@@ -144,7 +146,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/a48a1f0f0c352c55524bcf05df57be21ec012363'
     },
     {
-      id: 'clk7fyqju0003jx2gjb1mfltx',
+      id: 'bdfbdb',
       hash: '3539b0edf3919f12df270fe47233597fc6a5ba12',
       message: 'docs: add missing todo',
       authorName: 'Yanzaum',
@@ -154,7 +156,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/3539b0edf3919f12df270fe47233597fc6a5ba12'
     },
     {
-      id: 'clk8zfg4f0000jxps49c48m53',
+      id: 'gawgwa',
       hash: 'da2e512b6a274c367d6d442cdb4ee29a421e91c2',
       message: '🌈 style: apply dark theme',
       authorName: 'diego3g',
@@ -164,7 +166,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/da2e512b6a274c367d6d442cdb4ee29a421e91c2'
     },
     {
-      id: 'clk8zfqos0001jxpsr22u5ho7',
+      id: 'dwa',
       hash: '032365222fb9004a6d2fa6ba6d76dbd32e176f3f',
       message: 'chore: add some libs',
       authorName: 'Matan18',
@@ -174,7 +176,7 @@ export default async function HomePage() {
       redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/032365222fb9004a6d2fa6ba6d76dbd32e176f3f'
     },
     {
-      id: 'clk91yfz80000jxvsetljaq4z',
+      id: 'a',
       hash: '725a02ee8d73b8da6d7226f87cea532a693f65a7',
       message: '✨ feat: add collaborators list',
       authorName: 'MateusHoffman',
@@ -187,7 +189,6 @@ export default async function HomePage() {
   ]
 
   const users = Array.from(new Set(commits.map(commit => commit.authorName)));
-  // const users = commits.map(commit => commit.authorName);
 
   return (
     <div className="flex-1 flex items-center justify-center">
@@ -196,8 +197,16 @@ export default async function HomePage() {
           <CollaboratorsList usernames={users} />
         </header>
 
-        <main className="m-auto w-fit">
-          <CommitsList commits={commits} />
+        <main className="relative m-auto w-fit flex items-start gap-20">
+          {/* Left Content */}
+          <ScrollArea className="w-full h-[70vh]">
+            <CommitsList commits={commits} />
+          </ScrollArea>
+
+          {/* Right Content */}
+          <div>
+            <h1 className="text-2xl font-semibold text-zinc-500 dark:text-zinc-300 whitespace-nowrap">Submit Commits</h1>
+          </div>
         </main>
       </div>
     </div>

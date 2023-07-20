@@ -26,15 +26,20 @@ export function CommitsList({ commits }: CommitsListProps) {
 
   return (
     <div className="flow-root">
+
       <ul role="list" className="-mb-8 max-w-[400px]">
 
         {commitsFiltered.map((commit, index) => (
           <li key={commit.id}>
-            <CommitCard commit={commit} isLast={index === commitsFiltered.length - 1} />
+            <CommitCard
+              commit={commit}
+              isLast={index === commitsFiltered.length - 1}
+            />
           </li>
         ))}
 
       </ul>
+
     </div>
   )
 }
