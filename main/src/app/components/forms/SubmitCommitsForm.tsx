@@ -6,15 +6,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { submitCommitsAction } from "@/app/actions/submit-commits.action";
+import { submitCommitsAction, unsubmitCommitsAction } from "@/app/actions/submit-commits.action";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { Commit } from "@prisma/client";
 
 const submitCommitSchema = z.object({
   description: z.string().optional(),
 });
 
-export function SubmitCommitsForm() {
+export interface SubmitCommitsFormProps {
+  commits: Commit[],
+}
+
+export function SubmitCommitsForm({ commits }: SubmitCommitsFormProps) {
   
   const form = useForm({
     resolver: zodResolver(submitCommitSchema),
@@ -26,6 +31,7 @@ export function SubmitCommitsForm() {
     try {
       await submitCommitsAction({
         description: data.description || null,
+        commitIds: commits.map(commit => commit.id),
       });
   
       toast({
@@ -33,7 +39,7 @@ export function SubmitCommitsForm() {
       });
     } catch (err: any) {
       toast({
-        title: "There was a problem with your request.",
+        title: "There was a problem with your submit request.",
         description: err.message ?? "Unknown error",
         action: (
           <ToastAction
@@ -80,13 +86,25 @@ export function SubmitCommitsForm() {
           )}
         />
 
-        <Button
-          type="submit"
-          isLoading={form.formState.isSubmitting}
-          disabled={!form.formState.isValid}
-        >
-          Submit
-        </Button>
+        <footer className="flex items-center gap-3">
+          <Button
+            type="submit"
+            isLoading={form.formState.isSubmitting}
+            disabled={!form.formState.isValid}
+          >
+            Submit
+          </Button>
+
+          {process.env.NODE_ENV === 'development' && (
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={() => unsubmitCommitsAction()}
+            >
+              Unsubmitt all (DEBUG)
+            </Button>
+          )}
+        </footer>
       </form>
     </Form>
   )

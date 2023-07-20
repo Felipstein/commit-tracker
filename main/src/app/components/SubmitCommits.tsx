@@ -1,10 +1,11 @@
+import { Commit } from "@prisma/client";
 import { SubmitCommitsForm } from "./forms/SubmitCommitsForm";
 
 export interface SubmitCommitsProps {
-  totalCommits: number,
+  commits: Commit[],
 }
 
-export function SubmitCommits({ totalCommits }: SubmitCommitsProps) {
+export function SubmitCommits({ commits }: SubmitCommitsProps) {
   
   return (
     <div className="space-y-6">
@@ -13,10 +14,10 @@ export function SubmitCommits({ totalCommits }: SubmitCommitsProps) {
           Submit Commits
         </h1>
 
-        <span className='text-xs opacity-40'>{totalCommits} unsubmitted commit{totalCommits > 1 ? 's' : ''}</span>
+        <span className='text-xs opacity-40'>{commits.length} unsubmitted commit{commits.length > 1 ? 's' : ''}</span>
       </header>
 
-      <SubmitCommitsForm />
+      <SubmitCommitsForm commits={commits} />
     </div>
   )
 }

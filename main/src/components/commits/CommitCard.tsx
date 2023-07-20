@@ -10,6 +10,7 @@ export interface CommitCardProps {
 }
 
 export function CommitCard({ commit, isLast }: CommitCardProps) {
+
   return (
     <div className="relative pb-8">
       {!isLast && (
