@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { submitCommitsAction, unsubmitCommitsAction } from "@/app/actions/submit-commits.action";
+import { exportCommitsToJson, submitCommitsAction, unsubmitCommitsAction } from "@/app/actions/submit-commits.action";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { Commit } from "@prisma/client";
@@ -15,19 +15,21 @@ const submitCommitSchema = z.object({
   description: z.string().optional(),
 });
 
+type SubmitCommitsFormData = z.infer<typeof submitCommitSchema>;
+
 export interface SubmitCommitsFormProps {
   commits: Commit[],
 }
 
 export function SubmitCommitsForm({ commits }: SubmitCommitsFormProps) {
   
-  const form = useForm({
+  const form = useForm<SubmitCommitsFormData>({
     resolver: zodResolver(submitCommitSchema),
   });
 
   const { toast } = useToast();
   
-  async function submitCommits(data: z.infer<typeof submitCommitSchema>) {
+  async function submitCommits(data: SubmitCommitsFormData) {
     try {
       await submitCommitsAction({
         description: data.description || null,
@@ -37,6 +39,8 @@ export function SubmitCommitsForm({ commits }: SubmitCommitsFormProps) {
       toast({
         description: "Commits submitted!",
       });
+
+      form.setValue('description', '');
     } catch (err: any) {
       toast({
         title: "There was a problem with your submit request.",
@@ -96,6 +100,15 @@ export function SubmitCommitsForm({ commits }: SubmitCommitsFormProps) {
           </Button>
 
           {process.env.NODE_ENV === 'development' && (
+            <>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => exportCommitsToJson()}
+            >
+              Export all (DEBUG)
+            </Button>
+
             <Button
               type="button"
               variant="destructive"
@@ -103,6 +116,7 @@ export function SubmitCommitsForm({ commits }: SubmitCommitsFormProps) {
             >
               Unsubmitt all (DEBUG)
             </Button>
+            </>
           )}
         </footer>
       </form>

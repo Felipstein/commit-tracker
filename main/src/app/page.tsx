@@ -3,8 +3,12 @@ import { prisma } from '@/lib/prisma'
 import { CollaboratorsList } from './components/CollaboratorsList'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { SubmitCommits } from './components/SubmitCommits'
+import commitsMocked from '../../tmp/commits.json';
+import { Commit } from '@prisma/client'
 
 export default async function HomePage() {
+
+  // const commits = commitsMocked as Commit[];
 
   const commits = await prisma.commit.findMany({
     where: { submitInfo: { is: null } },
