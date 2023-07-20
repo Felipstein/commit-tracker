@@ -22,6 +22,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { ToastAction } from '@/components/ui/toast'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 import { useCommitsStore } from '@/stores/CommitsStore'
+import { useEffect, useRef } from 'react'
 
 const submitCommitSchema = z.object({
   description: z.string().optional(),
@@ -36,6 +37,9 @@ export interface SubmitCommitsFormProps {
 export function SubmitCommitsForm({
   unsubmittedCommitsSelected,
 }: SubmitCommitsFormProps) {
+  const awaitCommitsListUpdate = useRef(false)
+
+  const commits = useCommitsStore((s) => s.commits)
   const clearSelectCommitIds = useCommitsStore((s) => s.clearSelectCommitIds)
 
   const form = useForm<SubmitCommitsFormData>({
@@ -43,6 +47,14 @@ export function SubmitCommitsForm({
   })
 
   const { toast } = useToast()
+
+  useEffect(() => {
+    if (awaitCommitsListUpdate.current) {
+      awaitCommitsListUpdate.current = false
+
+      clearSelectCommitIds()
+    }
+  }, [commits, clearSelectCommitIds])
 
   async function submitCommits(data: SubmitCommitsFormData) {
     try {
@@ -56,7 +68,6 @@ export function SubmitCommitsForm({
       })
 
       form.setValue('description', '')
-      clearSelectCommitIds()
     } catch (err: any) {
       toast({
         title: 'There was a problem with your submit request.',
