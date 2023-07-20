@@ -1,18 +1,21 @@
 'use client'
 
-import { Commit } from '@prisma/client'
 import { SubmitCommitsForm } from './forms/SubmitCommitsForm'
 import { useCommitsFilterStore } from '@/stores/CommitsFilterStore'
 import { cn } from '@/lib/utils'
+import { useCommitsStore } from '@/stores/CommitsStore'
+import { useMemo } from 'react'
 
-export interface SubmitCommitsProps {
-  commits: (Commit & { submitInfo: string | null })[]
-}
-
-export function SubmitCommits({ commits }: SubmitCommitsProps) {
+export function SubmitCommits() {
   const submitStatus = useCommitsFilterStore((s) => s.submitStatus)
 
-  const unsubmittedCommits = commits.filter((commit) => !commit.submitInfo)
+  const commits = useCommitsStore((s) => s.commits)
+  const commitIdsSelected = useCommitsStore((s) => s.commitIdsSelected)
+
+  const unsubmittedCommitsSelected = useMemo(
+    () => commits.filter((commit) => commitIdsSelected.includes(commit.id)),
+    [commits, commitIdsSelected],
+  )
 
   return (
     <div
@@ -27,12 +30,14 @@ export function SubmitCommits({ commits }: SubmitCommitsProps) {
         </h1>
 
         <span className="text-xs opacity-40">
-          {unsubmittedCommits.length} unsubmitted commit
-          {unsubmittedCommits.length > 1 ? 's' : ''}
+          {unsubmittedCommitsSelected.length} unsubmitted commit
+          {unsubmittedCommitsSelected.length > 1 ? 's' : ''}
         </span>
       </header>
 
-      <SubmitCommitsForm unsubmittedCommits={unsubmittedCommits} />
+      <SubmitCommitsForm
+        unsubmittedCommitsSelected={unsubmittedCommitsSelected}
+      />
     </div>
   )
 }

@@ -1,16 +1,15 @@
 'use client'
 
-import { Commit } from '@prisma/client'
 import { CommitCard } from './CommitCard'
 import { CommitsEmpty } from './CommitsEmpty'
 import { useCommitsFilterStore } from '@/stores/CommitsFilterStore'
 import { useMemo } from 'react'
+import { useCommitsStore } from '@/stores/CommitsStore'
+import { CommitWithSubmitInfo } from '@/@types/commit.type'
 
-export interface CommitsListProps {
-  commits: Commit[]
-}
+export function CommitsList() {
+  const commits = useCommitsStore((s) => s.commits)
 
-export function CommitsList({ commits }: CommitsListProps) {
   const submitStatus = useCommitsFilterStore((s) => s.submitStatus)
   const byUsername = useCommitsFilterStore((s) => s.byUsername)
 
@@ -19,7 +18,7 @@ export function CommitsList({ commits }: CommitsListProps) {
       byUsername
         ? commits.filter((commit) => commit.authorName === byUsername)
         : commits
-    ) as (Commit & { submitInfo: string | null })[]
+    ) as CommitWithSubmitInfo[]
 
     return commitsFiltered.filter((commit) =>
       submitStatus === 'not-submitted'

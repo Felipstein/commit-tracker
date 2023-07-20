@@ -20,7 +20,7 @@ import {
 } from '@/app/actions/submit-commits.action'
 import { useToast } from '@/components/ui/use-toast'
 import { ToastAction } from '@/components/ui/toast'
-import { Commit } from '@prisma/client'
+import { CommitWithSubmitInfo } from '@/@types/commit.type'
 
 const submitCommitSchema = z.object({
   description: z.string().optional(),
@@ -29,11 +29,11 @@ const submitCommitSchema = z.object({
 type SubmitCommitsFormData = z.infer<typeof submitCommitSchema>
 
 export interface SubmitCommitsFormProps {
-  unsubmittedCommits: Commit[]
+  unsubmittedCommitsSelected: CommitWithSubmitInfo[]
 }
 
 export function SubmitCommitsForm({
-  unsubmittedCommits,
+  unsubmittedCommitsSelected,
 }: SubmitCommitsFormProps) {
   const form = useForm<SubmitCommitsFormData>({
     resolver: zodResolver(submitCommitSchema),
@@ -45,7 +45,7 @@ export function SubmitCommitsForm({
     try {
       await submitCommitsAction({
         description: data.description || null,
-        commitIds: unsubmittedCommits.map((commit) => commit.id),
+        commitIds: unsubmittedCommitsSelected.map((commit) => commit.id),
       })
 
       toast({
@@ -99,7 +99,9 @@ export function SubmitCommitsForm({
           <Button
             type="submit"
             isLoading={form.formState.isSubmitting}
-            disabled={!form.formState.isValid}
+            disabled={
+              !form.formState.isValid || unsubmittedCommitsSelected.length === 0
+            }
           >
             Submit
           </Button>
