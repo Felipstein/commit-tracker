@@ -11,18 +11,36 @@ export interface CommitsListProps {
 }
 
 export function CommitsList({ commits }: CommitsListProps) {
+  const submitStatus = useCommitsFilterStore((s) => s.submitStatus)
   const byUsername = useCommitsFilterStore((s) => s.byUsername)
 
-  const commitsFiltered = useMemo(
-    () =>
+  const commitsFiltered = useMemo(() => {
+    const commitsFiltered = (
       byUsername
         ? commits.filter((commit) => commit.authorName === byUsername)
-        : commits,
-    [commits, byUsername],
-  )
+        : commits
+    ) as (Commit & { submitInfo: string | null })[]
+
+    return commitsFiltered.filter((commit) =>
+      submitStatus === 'not-submitted'
+        ? !commit.submitInfo
+        : submitStatus === 'submitted'
+        ? !!commit.submitInfo
+        : true,
+    )
+  }, [commits, submitStatus, byUsername])
 
   return (
     <div className="flow-root w-96">
+      <span className="text-xs opacity-40">
+        {commitsFiltered.length}{' '}
+        {submitStatus === 'not-submitted'
+          ? `unsubmitted commit${commitsFiltered.length > 1 ? 's' : ''}`
+          : submitStatus === 'submitted'
+          ? `submitted commit${commitsFiltered.length > 1 ? 's' : ''}`
+          : `commit${commitsFiltered.length > 1 ? 's' : ''}`}
+      </span>
+
       {commits.length === 0 && <CommitsEmpty />}
 
       {commits.length > 0 && commitsFiltered.length === 0 && (

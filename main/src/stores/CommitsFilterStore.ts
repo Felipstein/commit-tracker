@@ -2,20 +2,18 @@ import { create } from 'zustand'
 
 export interface CommitsFilterStore {
   byUsername: string | null
-  onlyNotSubmitted: boolean | null
+  submitStatus: 'all' | 'submitted' | 'not-submitted'
   setByUsername: (byUsername: string) => void
   removeByUsername: () => void
-  setOnlyNotSubmitted: (onlyNotSubmitted: boolean) => void
-  removeOnlyNotSubmitted: () => void
+  changeSubmitStatus: (status: 'all' | 'submitted' | 'not-submitted') => void
 }
 
 export const useCommitsFilterStore = create<CommitsFilterStore>((set) => ({
   byUsername: null,
-  onlyNotSubmitted: null,
+  submitStatus: 'not-submitted',
 
   setByUsername: (byUsername) => set(() => ({ byUsername })),
-  setOnlyNotSubmitted: (onlyNotSubmitted) => set(() => ({ onlyNotSubmitted })),
-
   removeByUsername: () => set(() => ({ byUsername: null })),
-  removeOnlyNotSubmitted: () => set(() => ({ onlyNotSubmitted: null })),
+
+  changeSubmitStatus: (status) => set(() => ({ submitStatus: status })),
 }))
