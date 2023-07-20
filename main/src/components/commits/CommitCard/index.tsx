@@ -1,17 +1,11 @@
 import { Commit } from '@prisma/client'
-import { Clock4, X } from 'lucide-react'
+import { Clock4 } from 'lucide-react'
 import moment from 'moment'
 import Link from 'next/link'
-import { GithubAvatar } from '../GithugAvatar'
-import { Label } from '../ui/label'
-import { Checkbox } from '../ui/checkbox'
 import { cn } from '@/lib/utils'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '../ui/tooltip'
+
+import { CommitCardSelect } from './CommitCardSelect'
+import { GithubAvatar } from '@/components/GithugAvatar'
 
 export interface CommitCardProps {
   commit: Commit
@@ -83,33 +77,10 @@ export function CommitCard({
             </footer>
           </div>
 
-          <div
-            className={cn('transition-colors', {
-              hidden: !isSelectable,
-            })}
-          >
-            {isSelected && (
-              <Checkbox checked className="hidden group-hover:flex" />
-            )}
-
-            {!isSelected && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Checkbox
-                      checked
-                      className="flex items-center justify-center !bg-transparent !text-red-600 dark:!text-red-400 border-red-600/30 dark:border-red-400/30"
-                      icon={X}
-                    />
-                  </TooltipTrigger>
-
-                  <TooltipContent asChild>
-                    <span>Commit not selected to submit</span>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            )}
-          </div>
+          <CommitCardSelect
+            isSelectable={isSelectable}
+            isSelected={isSelected}
+          />
         </button>
       </div>
     </div>
