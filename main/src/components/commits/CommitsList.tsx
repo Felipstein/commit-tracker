@@ -6,6 +6,8 @@ import { useCommitsFilterStore } from '@/stores/CommitsFilterStore'
 import { useMemo } from 'react'
 import { useCommitsStore } from '@/stores/CommitsStore'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
+import { Checkbox } from '../ui/checkbox'
+import { Label } from '../ui/label'
 
 export function CommitsList() {
   const {
@@ -36,14 +38,32 @@ export function CommitsList() {
 
   return (
     <div className="flow-root w-96">
-      <span className="text-xs opacity-40">
-        {commitsFiltered.length}{' '}
-        {submitStatus === 'not-submitted'
-          ? `unsubmitted commit${commitsFiltered.length > 1 ? 's' : ''}`
-          : submitStatus === 'submitted'
-          ? `submitted commit${commitsFiltered.length > 1 ? 's' : ''}`
-          : `commit${commitsFiltered.length > 1 ? 's' : ''}`}
-      </span>
+      <header className="w-full flex justify-between items-center gap-3">
+        <span className="text-xs opacity-40">
+          {commitsFiltered.length}{' '}
+          {submitStatus === 'not-submitted'
+            ? `unsubmitted commit${commitsFiltered.length > 1 ? 's' : ''}`
+            : submitStatus === 'submitted'
+            ? `submitted commit${commitsFiltered.length > 1 ? 's' : ''}`
+            : `commit${commitsFiltered.length > 1 ? 's' : ''}`}
+        </span>
+
+        {submitStatus === 'not-submitted' && (
+          <div className="mb-2 flex items-center gap-1">
+            <Checkbox
+              id="select-all"
+              checked={commitIdsSelected.length === commitsFiltered.length}
+              onClick={toggleSelectAllCommitIds}
+              className="flex w-[12px] h-[12px]"
+              classNameForIcon="w-3 h-3"
+            />
+
+            <Label htmlFor="select-all" className="text-xs opacity-60 mt-[2px]">
+              Select all
+            </Label>
+          </div>
+        )}
+      </header>
 
       {commits.length === 0 && <CommitsEmpty />}
 

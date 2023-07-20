@@ -10,8 +10,9 @@ const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> & {
     icon?: React.ElementType
+    classNameForIcon?: string
   }
->(({ className, icon: Icon = Check, ...props }, ref) => (
+>(({ className, icon: Icon = Check, classNameForIcon, ...props }, ref) => (
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
@@ -23,7 +24,7 @@ const Checkbox = React.forwardRef<
     <CheckboxPrimitive.Indicator
       className={cn('flex items-center justify-center text-current')}
     >
-      <Icon className="h-4 w-4" />
+      <Icon className={cn('h-4 w-4', classNameForIcon)} />
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>
 ))
