@@ -2,6 +2,7 @@ import { CommitsList } from '@/components/commits/CommitsList'
 import { prisma } from '@/lib/prisma'
 import { CollaboratorsList } from './components/CollaboratorsList'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { SubmitCommits } from './components/SubmitCommits'
 
 export default async function HomePage() {
   // const commits = await prisma.commit.findMany();
@@ -222,11 +223,9 @@ export default async function HomePage() {
           </ScrollArea>
 
           {/* Right Content */}
-          <div>
-            <h1 className="whitespace-nowrap text-2xl font-semibold text-zinc-500 dark:text-zinc-300">
-              Submit Commits
-            </h1>
-          </div>
+          <SubmitCommits
+            totalCommits={commits.length}
+          />
         </main>
       </div>
     </div>
