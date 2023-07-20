@@ -36,6 +36,10 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
     removeByUsername()
   }
 
+  if(usernames.length === 0) {
+    return null;
+  }
+
   return (
     <div className="w-full space-y-2">
       <header className="flex items-center gap-2.5">
