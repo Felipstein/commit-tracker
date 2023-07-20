@@ -12,9 +12,17 @@ export function SubmitCommits() {
   const commits = useCommitsStore((s) => s.commits)
   const commitIdsSelected = useCommitsStore((s) => s.commitIdsSelected)
 
+  const unsubmittedCommits = useMemo(
+    () => commits.filter((commit) => !commit.submitInfo),
+    [commits],
+  )
+
   const unsubmittedCommitsSelected = useMemo(
-    () => commits.filter((commit) => commitIdsSelected.includes(commit.id)),
-    [commits, commitIdsSelected],
+    () =>
+      unsubmittedCommits.filter((commit) =>
+        commitIdsSelected.includes(commit.id),
+      ),
+    [unsubmittedCommits, commitIdsSelected],
   )
 
   return (
@@ -29,10 +37,18 @@ export function SubmitCommits() {
           Submit Commits
         </h1>
 
-        <span className="text-xs opacity-40">
-          {unsubmittedCommitsSelected.length} unsubmitted commit
-          {unsubmittedCommitsSelected.length > 1 ? 's' : ''}
-        </span>
+        <div className="flex items-center gap-1.5">
+          <span className="text-xs opacity-40">
+            {unsubmittedCommitsSelected.length} unsubmitted commit
+            {unsubmittedCommitsSelected.length > 1 ? 's' : ''}
+          </span>
+
+          {unsubmittedCommits.length !== unsubmittedCommitsSelected.length && (
+            <span className="text-[10px] opacity-30 dark:opacity-20">
+              {`of ${unsubmittedCommits.length} unsubmitted commits in total`}
+            </span>
+          )}
+        </div>
       </header>
 
       <SubmitCommitsForm

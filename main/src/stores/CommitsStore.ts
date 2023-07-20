@@ -7,6 +7,7 @@ export interface CommitsStore {
 
   toggleSelectCommitId: (id: string) => void
   toggleSelectAllCommitIds: () => void
+  clearSelectCommitIds: () => void
 }
 
 export const useCommitsStore = create<CommitsStore>((set) => ({
@@ -30,4 +31,6 @@ export const useCommitsStore = create<CommitsStore>((set) => ({
               .filter((commit) => !commit.submitInfo)
               .map((commit) => commit.id),
     })),
+
+  clearSelectCommitIds: () => set(() => ({ commitIdsSelected: [] })),
 }))
