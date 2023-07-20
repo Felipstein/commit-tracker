@@ -16,6 +16,7 @@ export interface CollaboratorAvatarProps {
   className?: string
   isSelected: boolean
   isNotSelected: boolean
+  interactionDisabled?: boolean
 }
 
 export function CollaboratorAvatar({
@@ -25,6 +26,7 @@ export function CollaboratorAvatar({
   className,
   isSelected,
   isNotSelected,
+  interactionDisabled = false,
 }: CollaboratorAvatarProps) {
   return (
     <TooltipProvider>
@@ -33,6 +35,9 @@ export function CollaboratorAvatar({
           <button
             type="button"
             onClick={() => (isSelected ? onCancelSelection() : onSelect())}
+            className={cn({
+              'pointer-events-none': interactionDisabled,
+            })}
           >
             <GithubAvatar
               clientSide
@@ -40,10 +45,13 @@ export function CollaboratorAvatar({
               width={64}
               height={64}
               className={cn(
-                'h-12 w-12 bg-zinc-50 p-0.5 transition-all hover:!scale-125 hover:!saturate-100 group-hover/avatar:scale-110 group-hover/avatar:saturate-50 dark:bg-zinc-950',
+                'h-12 w-12 bg-zinc-50 p-0.5 transition-all hover:!scale-125 hover:!saturate-100 dark:bg-zinc-950',
                 {
-                  '!scale-125 !saturate-100': isSelected,
+                  '!scale-125 !saturate-100':
+                    isSelected && !interactionDisabled,
                   'saturate-[0.25]': isNotSelected,
+                  'group-hover/avatar:scale-110 group-hover/avatar:saturate-50':
+                    !interactionDisabled,
                 },
                 className,
               )}

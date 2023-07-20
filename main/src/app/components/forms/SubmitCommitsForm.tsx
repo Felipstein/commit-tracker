@@ -29,10 +29,12 @@ const submitCommitSchema = z.object({
 type SubmitCommitsFormData = z.infer<typeof submitCommitSchema>
 
 export interface SubmitCommitsFormProps {
-  commits: Commit[]
+  unsubmittedCommits: Commit[]
 }
 
-export function SubmitCommitsForm({ commits }: SubmitCommitsFormProps) {
+export function SubmitCommitsForm({
+  unsubmittedCommits,
+}: SubmitCommitsFormProps) {
   const form = useForm<SubmitCommitsFormData>({
     resolver: zodResolver(submitCommitSchema),
   })
@@ -43,7 +45,7 @@ export function SubmitCommitsForm({ commits }: SubmitCommitsFormProps) {
     try {
       await submitCommitsAction({
         description: data.description || null,
-        commitIds: commits.map((commit) => commit.id),
+        commitIds: unsubmittedCommits.map((commit) => commit.id),
       })
 
       toast({

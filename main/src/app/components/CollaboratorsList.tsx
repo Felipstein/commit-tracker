@@ -49,7 +49,13 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
             : 'Collaborator'}
         </h3>
 
-        {userSelected && (
+        {usernames.length === 1 && (
+          <span className="text-xs text-zinc-300 dark:text-zinc-800">
+            {usernames[0]}
+          </span>
+        )}
+
+        {usernames.length > 1 && userSelected && (
           <span className="text-xs text-zinc-300 dark:text-zinc-800">
             Filtering by {userSelected}
           </span>
@@ -61,14 +67,19 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
           <li key={username}>
             <CollaboratorAvatar
               username={username}
-              className={cn({
-                '-ml-6 group-hover/avatar:ml-1': index > 0,
-                'ml-1': showAll || userSelected,
-              })}
+              className={
+                usernames.length > 1
+                  ? cn({
+                      '-ml-6 group-hover/avatar:ml-1': index > 0,
+                      'ml-1': showAll || userSelected,
+                    })
+                  : undefined
+              }
               isSelected={userSelected === username}
               isNotSelected={userSelected ? userSelected !== username : false}
               onSelect={() => handleSelectUsername(username)}
               onCancelSelection={handleCancelSelection}
+              interactionDisabled={usernames.length === 1}
             />
           </li>
         ))}

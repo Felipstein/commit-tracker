@@ -6,11 +6,13 @@ import { useCommitsFilterStore } from '@/stores/CommitsFilterStore'
 import { cn } from '@/lib/utils'
 
 export interface SubmitCommitsProps {
-  commits: Commit[]
+  commits: (Commit & { submitInfo: string | null })[]
 }
 
 export function SubmitCommits({ commits }: SubmitCommitsProps) {
   const submitStatus = useCommitsFilterStore((s) => s.submitStatus)
+
+  const unsubmittedCommits = commits.filter((commit) => !commit.submitInfo)
 
   return (
     <div
@@ -25,11 +27,12 @@ export function SubmitCommits({ commits }: SubmitCommitsProps) {
         </h1>
 
         <span className="text-xs opacity-40">
-          {commits.length} unsubmitted commit{commits.length > 1 ? 's' : ''}
+          {unsubmittedCommits.length} unsubmitted commit
+          {unsubmittedCommits.length > 1 ? 's' : ''}
         </span>
       </header>
 
-      <SubmitCommitsForm commits={commits} />
+      <SubmitCommitsForm unsubmittedCommits={unsubmittedCommits} />
     </div>
   )
 }
