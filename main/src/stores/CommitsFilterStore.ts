@@ -1,12 +1,12 @@
-import { create } from "zustand";
+import { create } from 'zustand'
 
 export interface CommitsFilterStore {
-  byUsername: string | null,
-  onlyNotSubmitted: boolean | null,
-  setByUsername: (byUsername: string) => void,
-  removeByUsername: () => void,
-  setOnlyNotSubmitted: (onlyNotSubmitted: boolean) => void,
-  removeOnlyNotSubmitted: () => void,
+  byUsername: string | null
+  onlyNotSubmitted: boolean | null
+  setByUsername: (byUsername: string) => void
+  removeByUsername: () => void
+  setOnlyNotSubmitted: (onlyNotSubmitted: boolean) => void
+  removeOnlyNotSubmitted: () => void
 }
 
 export const useCommitsFilterStore = create<CommitsFilterStore>((set) => ({
@@ -18,4 +18,4 @@ export const useCommitsFilterStore = create<CommitsFilterStore>((set) => ({
 
   removeByUsername: () => set(() => ({ byUsername: null })),
   removeOnlyNotSubmitted: () => set(() => ({ onlyNotSubmitted: null })),
-}));
+}))

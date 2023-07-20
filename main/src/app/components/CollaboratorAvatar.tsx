@@ -1,27 +1,38 @@
-"use client"
+'use client'
 
-import { GithubAvatar } from "@/components/GithugAvatar";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
+import { GithubAvatar } from '@/components/GithugAvatar'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
+import { cn } from '@/lib/utils'
 
 export interface CollaboratorAvatarProps {
-  username: string,
-  onSelect: () => void,
-  onCancelSelection: () => void,
-  className?: string,
-  isSelected: boolean,
-  isNotSelected: boolean,
+  username: string
+  onSelect: () => void
+  onCancelSelection: () => void
+  className?: string
+  isSelected: boolean
+  isNotSelected: boolean
 }
 
-export function CollaboratorAvatar({ username, onSelect, onCancelSelection, className, isSelected, isNotSelected }: CollaboratorAvatarProps) {
-
+export function CollaboratorAvatar({
+  username,
+  onSelect,
+  onCancelSelection,
+  className,
+  isSelected,
+  isNotSelected,
+}: CollaboratorAvatarProps) {
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
           <button
             type="button"
-            onClick={() => isSelected ? onCancelSelection() : onSelect()}
+            onClick={() => (isSelected ? onCancelSelection() : onSelect())}
           >
             <GithubAvatar
               clientSide
@@ -29,19 +40,16 @@ export function CollaboratorAvatar({ username, onSelect, onCancelSelection, clas
               width={64}
               height={64}
               className={cn(
-                "w-12 h-12 p-0.5 bg-zinc-50 dark:bg-zinc-950 transition-all group-hover/avatar:saturate-50 group-hover/avatar:scale-110 hover:!saturate-100 hover:!scale-125",
+                'h-12 w-12 bg-zinc-50 p-0.5 transition-all hover:!scale-125 hover:!saturate-100 group-hover/avatar:scale-110 group-hover/avatar:saturate-50 dark:bg-zinc-950',
                 {
-                  "!scale-125 !saturate-100": isSelected,
-                  "saturate-[0.25]": isNotSelected,
+                  '!scale-125 !saturate-100': isSelected,
+                  'saturate-[0.25]': isNotSelected,
                 },
                 className,
               )}
-              classNameForImage={cn(
-                "border-2 border-transparent",
-                {
-                  "border-zinc-800 dark:border-zinc-200": isSelected,
-                },
-              )}
+              classNameForImage={cn('border-2 border-transparent', {
+                'border-zinc-800 dark:border-zinc-200': isSelected,
+              })}
             />
           </button>
         </TooltipTrigger>
@@ -50,18 +58,24 @@ export function CollaboratorAvatar({ username, onSelect, onCancelSelection, clas
           <span className="text-zinc-500 dark:text-zinc-300">
             {!isSelected && (
               <>
-                Filter by <strong className="text-zinc-600 dark:text-zinc-50">{username}</strong>
+                Filter by{' '}
+                <strong className="text-zinc-600 dark:text-zinc-50">
+                  {username}
+                </strong>
               </>
             )}
 
             {isSelected && (
               <>
-                Cancel filter of <strong className="text-zinc-600 dark:text-zinc-50">{username}</strong>
+                Cancel filter of{' '}
+                <strong className="text-zinc-600 dark:text-zinc-50">
+                  {username}
+                </strong>
               </>
             )}
           </span>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
-  );
+  )
 }

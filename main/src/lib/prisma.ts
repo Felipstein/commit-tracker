@@ -1,5 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient(process.env.NODE_ENV !== 'production' ? { log: ['query'] } : undefined);
+const prisma = new PrismaClient(
+  process.env.NODE_ENV !== 'production' ? { log: ['query'] } : undefined,
+)
 
-export { prisma };
+export { prisma }

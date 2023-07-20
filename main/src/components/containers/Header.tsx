@@ -1,10 +1,9 @@
-import { ToggleThemeSwitch } from "../ToggleThemeSwitch";
+import { ToggleThemeSwitch } from '../ToggleThemeSwitch'
 
 export function Header() {
-
   return (
-    <header className="max-w-7xl p-8 w-full m-auto flex justify-end">
+    <header className="m-auto flex w-full max-w-7xl justify-end p-8">
       <ToggleThemeSwitch />
     </header>
-  );
+  )
 }

@@ -23,7 +23,7 @@
     "autoprefixer": "10.4.14",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
-    "eslint": "8.45.0",
+    "eslint": "^8.45.0",
     "eslint-config-next": "13.4.10",
     "lucide-react": "^0.261.0",
     "moment": "^2.29.4",
@@ -40,6 +40,8 @@
     "zustand": "^4.3.9"
   },
   "devDependencies": {
+    "@rocketseat/eslint-config": "^2.1.0",
+    "prettier-plugin-tailwindcss": "^0.4.1",
     "prisma": "^5.0.0"
   }
 }

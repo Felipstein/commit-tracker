@@ -1,11 +1,9 @@
-import { CommitsList } from "@/components/commits/CommitsList";
-import { prisma } from "@/lib/prisma";
-import { CollaboratorsList } from "./components/CollaboratorsList";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+import { CommitsList } from '@/components/commits/CommitsList'
+import { prisma } from '@/lib/prisma'
+import { CollaboratorsList } from './components/CollaboratorsList'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 export default async function HomePage() {
-
   // const commits = await prisma.commit.findMany();
   const commits = [
     {
@@ -16,8 +14,10 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-17T22:28:39.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/e75089a214d5c56737e07bcfaa666180686c69f6'
-    }, {
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/e75089a214d5c56737e07bcfaa666180686c69f6',
+    },
+    {
       id: 'abababab',
       hash: 'a48a1f0f0c352c55524bcf05df57be21ec012363',
       message: 'fix: get date from string',
@@ -25,7 +25,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-17T22:32:29.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/a48a1f0f0c352c55524bcf05df57be21ec012363'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/a48a1f0f0c352c55524bcf05df57be21ec012363',
     },
     {
       id: 'sdsdsdsds',
@@ -35,7 +36,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-17T22:32:50.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/3539b0edf3919f12df270fe47233597fc6a5ba12'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/3539b0edf3919f12df270fe47233597fc6a5ba12',
     },
     {
       id: 'aawdwadawda',
@@ -45,7 +47,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-19T00:25:27.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/da2e512b6a274c367d6d442cdb4ee29a421e91c2'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/da2e512b6a274c367d6d442cdb4ee29a421e91c2',
     },
     {
       id: 'dwadawgeagtretgergereh',
@@ -55,7 +58,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-19T00:25:42.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/032365222fb9004a6d2fa6ba6d76dbd32e176f3f'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/032365222fb9004a6d2fa6ba6d76dbd32e176f3f',
     },
     {
       id: 'dawdvxdfgrdgr',
@@ -65,7 +69,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-19T01:36:12.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/725a02ee8d73b8da6d7226f87cea532a693f65a7'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/725a02ee8d73b8da6d7226f87cea532a693f65a7',
     },
     {
       id: 'dawdfgsgrsdgrgrd',
@@ -75,8 +80,10 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-17T22:28:39.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/e75089a214d5c56737e07bcfaa666180686c69f6'
-    }, {
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/e75089a214d5c56737e07bcfaa666180686c69f6',
+    },
+    {
       id: 'atreytrehy',
       hash: 'a48a1f0f0c352c55524bcf05df57be21ec012363',
       message: 'fix: get date from string',
@@ -84,7 +91,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-17T22:32:29.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/a48a1f0f0c352c55524bcf05df57be21ec012363'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/a48a1f0f0c352c55524bcf05df57be21ec012363',
     },
     {
       id: 'ggdhnfhfthtrf',
@@ -94,7 +102,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-17T22:32:50.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/3539b0edf3919f12df270fe47233597fc6a5ba12'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/3539b0edf3919f12df270fe47233597fc6a5ba12',
     },
     {
       id: 'fahftgh',
@@ -104,7 +113,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-19T00:25:27.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/da2e512b6a274c367d6d442cdb4ee29a421e91c2'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/da2e512b6a274c367d6d442cdb4ee29a421e91c2',
     },
     {
       id: 'abbb',
@@ -114,7 +124,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-19T00:25:42.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/032365222fb9004a6d2fa6ba6d76dbd32e176f3f'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/032365222fb9004a6d2fa6ba6d76dbd32e176f3f',
     },
     {
       id: 'aaaa',
@@ -124,7 +135,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-19T01:36:12.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/725a02ee8d73b8da6d7226f87cea532a693f65a7'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/725a02ee8d73b8da6d7226f87cea532a693f65a7',
     },
     {
       id: 'dwadawdawdawdawdwa',
@@ -134,8 +146,10 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-17T22:28:39.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/e75089a214d5c56737e07bcfaa666180686c69f6'
-    }, {
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/e75089a214d5c56737e07bcfaa666180686c69f6',
+    },
+    {
       id: 'dwadwafawfaw',
       hash: 'a48a1f0f0c352c55524bcf05df57be21ec012363',
       message: 'fix: get date from string',
@@ -143,7 +157,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-17T22:32:29.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/a48a1f0f0c352c55524bcf05df57be21ec012363'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/a48a1f0f0c352c55524bcf05df57be21ec012363',
     },
     {
       id: 'bdfbdb',
@@ -153,7 +168,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-17T22:32:50.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/3539b0edf3919f12df270fe47233597fc6a5ba12'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/3539b0edf3919f12df270fe47233597fc6a5ba12',
     },
     {
       id: 'gawgwa',
@@ -163,7 +179,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-19T00:25:27.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/da2e512b6a274c367d6d442cdb4ee29a421e91c2'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/da2e512b6a274c367d6d442cdb4ee29a421e91c2',
     },
     {
       id: 'dwa',
@@ -173,7 +190,8 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-19T00:25:42.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/032365222fb9004a6d2fa6ba6d76dbd32e176f3f'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/032365222fb9004a6d2fa6ba6d76dbd32e176f3f',
     },
     {
       id: 'a',
@@ -183,32 +201,34 @@ export default async function HomePage() {
       authorEmail: 'luisfelipe-oliveira@outlook.com.br',
       isSubmitted: false,
       committedAt: new Date('2023-07-19T01:36:12.000Z'),
-      redirectUrl: 'https://github.com/Felipstein/commit-tracker/commit/725a02ee8d73b8da6d7226f87cea532a693f65a7'
+      redirectUrl:
+        'https://github.com/Felipstein/commit-tracker/commit/725a02ee8d73b8da6d7226f87cea532a693f65a7',
     },
-    
   ]
 
-  const users = Array.from(new Set(commits.map(commit => commit.authorName)));
+  const users = Array.from(new Set(commits.map((commit) => commit.authorName)))
 
   return (
-    <div className="flex-1 flex items-center justify-center">
+    <div className="flex flex-1 items-center justify-center">
       <div className="space-y-12">
         <header className="flex items-center justify-between gap-4">
           <CollaboratorsList usernames={users} />
         </header>
 
-        <main className="relative m-auto w-fit flex items-start gap-20">
+        <main className="relative m-auto flex w-fit items-start gap-20">
           {/* Left Content */}
-          <ScrollArea className="w-full h-[70vh]">
+          <ScrollArea className="h-[70vh] w-full">
             <CommitsList commits={commits} />
           </ScrollArea>
 
           {/* Right Content */}
           <div>
-            <h1 className="text-2xl font-semibold text-zinc-500 dark:text-zinc-300 whitespace-nowrap">Submit Commits</h1>
+            <h1 className="whitespace-nowrap text-2xl font-semibold text-zinc-500 dark:text-zinc-300">
+              Submit Commits
+            </h1>
           </div>
         </main>
       </div>
     </div>
-  );
+  )
 }

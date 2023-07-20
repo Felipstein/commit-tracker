@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <div className="bg-gradient-to-br from-zinc-50 via-zinc-50 to-gray-100 dark:from-zinc-950 dark:via-zinc-950 dark:to-gray-950 transition-colors flex flex-col min-h-screen">
+          <div className="flex min-h-screen flex-col bg-gradient-to-br from-zinc-50 via-zinc-50 to-gray-100 transition-colors dark:from-zinc-950 dark:via-zinc-950 dark:to-gray-950">
             <Header />
 
             {children}
