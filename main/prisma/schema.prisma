@@ -8,14 +8,26 @@ datasource db {
 }
 
 model Commit {
-  id          String   @id @default(cuid())
-  hash        String   @unique
-  message     String
-  authorName  String
-  authorEmail String
-  isSubmitted Boolean  @default(false)
-  committedAt DateTime @default(now())
-  redirectUrl String
+  id              String   @id @default(cuid())
+  hash            String   @unique
+  message         String
+  authorName      String
+  authorEmail     String
+  committedAt     DateTime @default(now())
+  redirectUrl     String
+  commitsSubmitId String?
+
+  submitInfo CommitsSubmit? @relation(fields: [commitsSubmitId], references: [id], onDelete: SetNull)
 
   @@map("commits")
+}
+
+model CommitsSubmit {
+  id          String   @id @default(cuid())
+  description String?
+  submittedAt DateTime @default(now())
+
+  Commit Commit[]
+
+  @@map("commits_submits")
 }
