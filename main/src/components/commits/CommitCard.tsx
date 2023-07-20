@@ -1,15 +1,33 @@
 import { Commit } from '@prisma/client'
-import { Clock4 } from 'lucide-react'
+import { Clock4, X } from 'lucide-react'
 import moment from 'moment'
 import Link from 'next/link'
 import { GithubAvatar } from '../GithugAvatar'
+import { Label } from '../ui/label'
+import { Checkbox } from '../ui/checkbox'
+import { cn } from '@/lib/utils'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../ui/tooltip'
 
 export interface CommitCardProps {
   commit: Commit
   isLast: boolean
+  isSelected: boolean
+  isSelectable: boolean
+  onClick: () => void
 }
 
-export function CommitCard({ commit, isLast }: CommitCardProps) {
+export function CommitCard({
+  commit,
+  isLast,
+  isSelectable,
+  isSelected,
+  onClick,
+}: CommitCardProps) {
   return (
     <div className="relative pb-8">
       {!isLast && (
@@ -34,10 +52,16 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
         </div>
 
         {/* Right Content */}
-        <Link
-          href={commit.redirectUrl}
-          target="_blank"
-          className="w-full flex-1 rounded-md p-2 hover:bg-zinc-100 dark:hover:bg-zinc-900/20"
+        <button
+          type="button"
+          onClick={isSelectable ? () => onClick() : undefined}
+          className={cn(
+            'group w-full flex-1 flex items-center justify-between gap-6 rounded-md p-2 hover:bg-zinc-100 dark:hover:bg-zinc-900/20',
+            {
+              'bg-red-400/10 dark:bg-red-600/10 hover:bg-red-600/10 dark:hover:bg-red-800/10':
+                !isSelected && isSelectable,
+            },
+          )}
         >
           <div className="flex flex-col items-start gap-1 truncate">
             <span className="truncate text-sm font-medium text-zinc-900 dark:text-zinc-50">
@@ -58,7 +82,35 @@ export function CommitCard({ commit, isLast }: CommitCardProps) {
               </time>
             </footer>
           </div>
-        </Link>
+
+          <div
+            className={cn('transition-colors', {
+              hidden: !isSelectable,
+            })}
+          >
+            {isSelected && (
+              <Checkbox checked className="hidden group-hover:flex" />
+            )}
+
+            {!isSelected && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Checkbox
+                      checked
+                      className="flex items-center justify-center !bg-transparent !text-red-600 dark:!text-red-400 border-red-600/30 dark:border-red-400/30"
+                      icon={X}
+                    />
+                  </TooltipTrigger>
+
+                  <TooltipContent asChild>
+                    <span>Commit not selected to submit</span>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          </div>
+        </button>
       </div>
     </div>
   )

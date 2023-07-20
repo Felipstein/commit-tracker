@@ -8,7 +8,12 @@ import { useCommitsStore } from '@/stores/CommitsStore'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 
 export function CommitsList() {
-  const commits = useCommitsStore((s) => s.commits)
+  const {
+    commits,
+    commitIdsSelected,
+    toggleSelectCommitId,
+    toggleSelectAllCommitIds,
+  } = useCommitsStore()
 
   const submitStatus = useCommitsFilterStore((s) => s.submitStatus)
   const byUsername = useCommitsFilterStore((s) => s.byUsername)
@@ -61,6 +66,9 @@ export function CommitsList() {
               <CommitCard
                 commit={commit}
                 isLast={index === commitsFiltered.length - 1}
+                isSelectable={submitStatus === 'not-submitted'}
+                isSelected={commitIdsSelected.includes(commit.id)}
+                onClick={() => toggleSelectCommitId(commit.id)}
               />
             </li>
           ))}
