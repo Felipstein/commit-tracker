@@ -2,7 +2,13 @@ const axios = require('axios');
 const chalk = require('chalk');
 const { z } = require('zod');
 
-const MAIN_APP_ENDPOINT = 'http://localhost:3000/api/commits';
+const commitTrackerUrl = process.env.COMMIT_TRACKER_URL;
+
+if(!commitTrackerUrl) {
+  throw new Error(chalk.red('COMMIT_TRACKER_URL is not defined in .env file.'));
+}
+
+const MAIN_APP_ENDPOINT = `${commitTrackerUrl}/api/commits`;
 
 const sendCommitDataSchema = z.object({
   commitMessage: z.string().nonempty('Missing "commitMessage"'),
