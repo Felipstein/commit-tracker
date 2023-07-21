@@ -9,6 +9,7 @@ import { CommitWithSubmitInfo } from '@/@types/commit.type'
 export default async function HomePage() {
   const commits = await prisma.commit.findMany({
     include: { submitInfo: true },
+    orderBy: { committedAt: 'desc' },
   })
 
   const users = Array.from(new Set(commits.map((commit) => commit.authorName)))
