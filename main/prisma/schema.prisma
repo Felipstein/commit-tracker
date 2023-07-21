@@ -25,6 +25,7 @@ model CommitsSubmit {
   id          String   @id @default(cuid())
   description String?
   commitId    String   @unique
+  imageUrls   String[]
   submittedAt DateTime @default(now())
 
   commit Commit @relation(fields: [commitId], references: [id], onDelete: Cascade)

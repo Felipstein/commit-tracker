@@ -22,6 +22,10 @@ import { useToast } from '@/components/ui/use-toast'
 import { ToastAction } from '@/components/ui/toast'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 import { useCommitsStore } from '@/stores/CommitsStore'
+import { ChangeEvent, useState } from 'react'
+import { PlusIcon, X } from 'lucide-react'
+import Image from 'next/image'
+import { cn } from '@/lib/utils'
 
 const submitCommitSchema = z.object({
   description: z.string().optional(),
@@ -36,20 +40,42 @@ export interface SubmitCommitsFormProps {
 export function SubmitCommitsForm({
   unsubmittedCommitsSelected,
 }: SubmitCommitsFormProps) {
+  const [files, setFiles] = useState<File[]>([])
+
   const form = useForm<SubmitCommitsFormData>({
     resolver: zodResolver(submitCommitSchema),
   })
 
   const { toast } = useToast()
 
+  function onSelectImages(event: ChangeEvent<HTMLInputElement>) {
+    const { files } = event.target
+
+    if (!files) {
+      return
+    }
+
+    const filesFixed: File[] = []
+
+    for (let i = 0; i < files.length; i++) {
+      filesFixed.push(files[i])
+    }
+
+    setFiles((prevState) => [...prevState, ...filesFixed])
+  }
+
+  function onRemoveImage(file: File) {
+    setFiles((prevState) => prevState.filter((fileObj) => fileObj !== file))
+  }
+
   async function submitCommits(data: SubmitCommitsFormData) {
     try {
       const commitIds = unsubmittedCommitsSelected.map((commit) => commit.id)
 
-      const commits = (await submitCommitsAction({
+      const commits = await submitCommitsAction({
         description: data.description || null,
         commitIds,
-      })) as CommitWithSubmitInfo[]
+      })
 
       toast({
         description: 'Commits submitted!',
@@ -86,22 +112,100 @@ export function SubmitCommitsForm({
         <FormField
           name="description"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel className="flex items-center gap-2">
-                <span className="opacity-80 leading-relaxed">Description</span>
-
-                <small className="text-xs opacity-20">optional</small>
-              </FormLabel>
-
-              <FormControl>
-                <Textarea
-                  placeholder="Put here a description for your commits"
-                  {...field}
+            <>
+              <label
+                htmlFor="images"
+                className="relative flex flex-col gap-2 cursor-pointer"
+              >
+                <input
+                  id="images"
+                  type="file"
+                  className="sr-only"
+                  multiple
+                  accept="image/*"
+                  onChange={onSelectImages}
                 />
-              </FormControl>
 
-              <FormMessage />
-            </FormItem>
+                <div className="flex items-center gap-2">
+                  <span className="opacity-80 leading-relaxed">Upload</span>
+
+                  <small className="text-xs opacity-20">optional</small>
+
+                  {files.length > 0 && (
+                    <span className="absolute right-0 flex items-center gap-0.5 text-sm opacity-70 hover:opacity-90 hover:underline">
+                      Upload more
+                      <PlusIcon className="w-4 h-4" />
+                    </span>
+                  )}
+                </div>
+
+                <div
+                  className={cn(
+                    'w-full h-44 flex items-center gap-1 justify-center rounded-md bg-zinc-100/40 border-zinc-200 dark:bg-zinc-900/20 border dark:border-zinc-900',
+                    {
+                      'w-fit': files.length > 0,
+                    },
+                  )}
+                >
+                  {files.length === 0 && (
+                    <span className="text-xs opacity-30">
+                      Upload images to provide examples or detail your commits
+                    </span>
+                  )}
+
+                  {files.length > 0 && (
+                    <ul className="flex gap-1 h-full">
+                      {files
+                        .map((file) => ({
+                          file,
+                          preview: URL.createObjectURL(file),
+                        }))
+                        .map(({ file, preview }) => (
+                          <li key={preview} className="relative group">
+                            <Image
+                              src={preview}
+                              alt="Image Preview"
+                              width={200}
+                              height={200}
+                              className="w-24 h-full object-cover"
+                            />
+
+                            <button
+                              type="button"
+                              className="absolute hidden group-hover:flex items-center justify-center bg-red-700 hover:bg-red-500 p-0.5 rounded-full top-1 right-1"
+                              onClick={(event) => {
+                                event.preventDefault()
+                                onRemoveImage(file)
+                              }}
+                            >
+                              <X className="w-3 h-3 text-zinc-50" />
+                            </button>
+                          </li>
+                        ))}
+                    </ul>
+                  )}
+                </div>
+              </label>
+
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <span className="opacity-80 leading-relaxed">
+                    Description
+                  </span>
+
+                  <small className="text-xs opacity-20">optional</small>
+                </FormLabel>
+
+                <FormControl>
+                  <Textarea
+                    placeholder="Put here a description for your commits"
+                    {...field}
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            </>
           )}
         />
 
@@ -130,8 +234,7 @@ export function SubmitCommitsForm({
                 type="button"
                 variant="destructive"
                 onClick={async () => {
-                  const commits =
-                    (await unsubmitCommitsAction()) as CommitWithSubmitInfo[]
+                  const commits = await unsubmitCommitsAction()
                   useCommitsStore.setState({
                     commits,
                     commitIdsSelected: commits.map((commit) => commit.id),
