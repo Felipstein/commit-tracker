@@ -28,7 +28,7 @@ export function SubmitCommits() {
   return (
     <div
       className={cn('space-y-6', {
-        'opacity-30 dark:opacity-20 pointer-events-none select-none':
+        'pointer-events-none select-none opacity-30 dark:opacity-20':
           submitStatus !== 'not-submitted',
       })}
     >

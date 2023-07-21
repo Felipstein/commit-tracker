@@ -50,9 +50,9 @@ export function CommitCard({
           type="button"
           onClick={isSelectable ? () => onClick() : undefined}
           className={cn(
-            'group w-full flex items-center justify-between gap-6 rounded-md p-2 hover:bg-zinc-100 dark:hover:bg-zinc-900/20 truncate',
+            'group flex w-full items-center justify-between gap-6 truncate rounded-md p-2 hover:bg-zinc-100 dark:hover:bg-zinc-900/20',
             {
-              'bg-red-400/10 dark:bg-red-600/10 hover:bg-red-600/10 dark:hover:bg-red-800/10':
+              'bg-red-400/10 hover:bg-red-600/10 dark:bg-red-600/10 dark:hover:bg-red-800/10':
                 !isSelected && isSelectable,
             },
           )}

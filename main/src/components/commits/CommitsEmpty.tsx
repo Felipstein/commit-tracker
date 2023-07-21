@@ -8,7 +8,7 @@ export function CommitsEmptyRoot({
   return (
     <div
       className={cn(
-        'text-zinc-400 dark:text-zinc-500 text-sm text-center m-3',
+        'm-3 text-center text-sm text-zinc-400 dark:text-zinc-500',
         className,
       )}
       {...props}

@@ -24,9 +24,9 @@ export default async function HomePage() {
             <CollaboratorsList usernames={users} />
           </header>
 
-          <main className="relative w-full flex">
+          <main className="relative flex w-full">
             {/* Left Nav */}
-            <aside className="absolute -left-14 -translate-x-full top-4">
+            <aside className="absolute -left-14 top-4 -translate-x-full">
               <CommitSubmittedToggle />
             </aside>
 

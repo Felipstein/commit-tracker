@@ -1,8 +1,8 @@
 export function Footer() {
   return (
-    <footer className="w-full flex items-center justify-center p-8">
+    <footer className="flex w-full items-center justify-center p-8">
       <main className="flex flex-col items-center gap-1">
-        <span className="leading-relaxed text-sm opacity-30">
+        <span className="text-sm leading-relaxed opacity-30">
           Developed by Felipe Oliveira
         </span>
 

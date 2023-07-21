@@ -38,7 +38,7 @@ export function CommitCardSelect({
         <Checkbox
           asChild
           checked
-          className="flex items-center justify-center !bg-transparent !text-red-600 dark:!text-red-400 border-red-600/30 dark:border-red-400/30"
+          className="flex items-center justify-center border-red-600/30 !bg-transparent !text-red-600 dark:border-red-400/30 dark:!text-red-400"
           icon={X}
         >
           <div />

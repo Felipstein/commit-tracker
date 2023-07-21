@@ -111,7 +111,7 @@ export function SubmitCommitsForm({
       <form
         onSubmit={form.handleSubmit(submitCommits)}
         noValidate
-        className="space-y-8 w-96"
+        className="w-96 space-y-8"
       >
         <FormField
           name="description"
@@ -193,7 +193,7 @@ export function SubmitCommitsForm({
 
               <FormItem>
                 <FormLabel className="flex items-center gap-2">
-                  <span className="opacity-80 leading-relaxed">Tags</span>
+                  <span className="leading-relaxed opacity-80">Tags</span>
 
                   <small className="text-xs opacity-20">
                     require at least one
@@ -209,7 +209,7 @@ export function SubmitCommitsForm({
 
               <FormItem>
                 <FormLabel className="flex items-center gap-2">
-                  <span className="opacity-80 leading-relaxed">
+                  <span className="leading-relaxed opacity-80">
                     Description
                   </span>
 

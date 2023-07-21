@@ -16,12 +16,12 @@ export function CommitSubmittedToggle() {
     <div className="flex flex-col gap-2">
       <button
         type="button"
-        className="text-xs opacity-30 hover:opacity-50 hover:underline flex items-center gap-1"
+        className="flex items-center gap-1 text-xs opacity-30 hover:underline hover:opacity-50"
         onClick={() => setShowFilters((prevState) => !prevState)}
       >
         Filters
         <ChevronDown
-          className={cn('w-4 h-4 transition-transform', {
+          className={cn('h-4 w-4 transition-transform', {
             'rotate-180': showFilters,
           })}
         />
@@ -29,9 +29,9 @@ export function CommitSubmittedToggle() {
 
       <div
         className={cn(
-          'flex flex-col gap-0.5 opacity-0 scale-75 -translate-y-6 transition pointer-events-none',
+          'pointer-events-none flex -translate-y-6 scale-75 flex-col gap-0.5 opacity-0 transition',
           {
-            'opacity-100 scale-100 translate-y-0 pointer-events-auto':
+            'pointer-events-auto translate-y-0 scale-100 opacity-100':
               showFilters,
           },
         )}

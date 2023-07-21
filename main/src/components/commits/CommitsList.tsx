@@ -39,7 +39,7 @@ export function CommitsList() {
 
   return (
     <div className="flow-root h-full w-full">
-      <header className="w-full flex justify-between items-center gap-3">
+      <header className="flex w-full items-center justify-between gap-3">
         <span className="text-xs opacity-40">
           {commitsFiltered.length}{' '}
           {submitStatus === 'not-submitted'
@@ -55,11 +55,11 @@ export function CommitsList() {
               id="select-all"
               checked={commitIdsSelected.length === commitsFiltered.length}
               onClick={toggleSelectAllCommitIds}
-              className="flex w-[12px] h-[12px]"
+              className="flex h-[12px] w-[12px]"
               classNameForIcon="w-3 h-3"
             />
 
-            <Label htmlFor="select-all" className="text-xs opacity-60 mt-[2px]">
+            <Label htmlFor="select-all" className="mt-[2px] text-xs opacity-60">
               Select all
             </Label>
           </div>
@@ -81,7 +81,7 @@ export function CommitsList() {
       )}
 
       {commitsFiltered.length > 0 && (
-        <ScrollArea className="-mb-8 w-full h-full truncate pr-2">
+        <ScrollArea className="-mb-8 h-full w-full truncate pr-2">
           {commitsFiltered.map((commit, index) => (
             <li key={commit.id} className="block">
               <CommitCard

@@ -51,7 +51,7 @@ const InputTag = React.forwardRef<HTMLInputElement, InputProps>(
           spellCheck={false}
           type={type}
           className={cn(
-            'flex min-h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-transparent selection:invisible',
+            'min-h-10 flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm text-transparent ring-offset-background selection:invisible placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
             className,
           )}
           style={{
@@ -66,7 +66,7 @@ const InputTag = React.forwardRef<HTMLInputElement, InputProps>(
 
         <ul
           ref={ulRef}
-          className="absolute flex items-center gap-2 flex-wrap top-1/2 -translate-y-1/2 w-full py-2 px-3 pointer-events-none"
+          className="pointer-events-none absolute top-1/2 flex w-full -translate-y-1/2 flex-wrap items-center gap-2 px-3 py-2"
         >
           {tags.map((tag: string) => (
             <li key={tag}>
