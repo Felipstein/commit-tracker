@@ -1,6 +1,12 @@
+require('dotenv/config');
+
 const axios = require('axios');
 const chalk = require('chalk');
 const { z } = require('zod');
+
+if(process.env.ENABLE_COMMIT_TRACKER !== true) {
+  process.exit(0);
+}
 
 const commitTrackerUrl = process.env.COMMIT_TRACKER_URL;
 
