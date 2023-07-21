@@ -15,6 +15,8 @@ export default class SubmitCommitService {
       throw new Error(`Submit ${commitsSubmitId} not found`)
     }
 
+    const commits = commitsSubmit.commits
+
     const channel = await slackService.getChannel('daily-it')
 
     const messages = await slackService.getMessagesHistory(channel.id)
@@ -25,22 +27,31 @@ export default class SubmitCommitService {
 
     const lastMessage = messages[0]
 
-    const links = [
-      linkMessage('https://github.com/Felipstein', 'eita sÔ'),
-      linkMessage('https://github.com/Felipstein', 'eita carambolinhas'),
-    ]
+    const links = commits.map((commit) =>
+      linkMessage(commit.redirectUrl, commit.message),
+    )
 
     const messageBlocks = [
       '*#feat #v2 #frontend*',
-      'alo galera de cowboy!',
+      commitsSubmit.description,
       links.join('\n'),
-    ]
+    ].filter((messageBlock) => !!messageBlock) as string[]
 
-    await slackService.postThreadMessage(
-      channel.id,
-      lastMessage.ts,
-      messageBlocks,
-    )
+    try {
+      await this.slackService.postThreadMessage(
+        channel.id,
+        lastMessage.ts,
+        messageBlocks,
+      )
+    } catch (err) {
+      if (links.length > 22) {
+        throw Error(
+          'Too many commits selected, slack API not support more than 22 links per message. Please split your commits in multiple submits (max 22 commits per submit) and try again.',
+        )
+      }
+
+      throw err
+    }
   }
 }
 

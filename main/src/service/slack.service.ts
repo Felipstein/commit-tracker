@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from 'axios'
 import {
   ConversationsHistoryResponse,
   ConversationsListResponse,
+  MessageBlock,
   PostMessageRequest,
   PostMessageResponse,
   SlackGenericResponse,
@@ -64,16 +65,18 @@ export default class SlackService {
     threadTs: string,
     messageBlocks: string[],
   ) {
+    const blocks = messageBlocks.map((messageBlock) => ({
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: messageBlock,
+      },
+    })) as MessageBlock[]
+
     const messagePayload: PostMessageRequest = {
       channel: channelId,
       thread_ts: threadTs,
-      blocks: messageBlocks.map((messageBlock) => ({
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: messageBlock,
-        },
-      })),
+      blocks,
     }
 
     const { data } = await this.api.post<PostMessageResponse>(
