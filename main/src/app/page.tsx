@@ -32,9 +32,9 @@ export default async function HomePage() {
 
             <div className="relative m-auto flex w-fit items-start gap-20">
               {/* Left Content */}
-              <ScrollArea className="h-[60vh] w-full">
+              <div className="h-[60vh] w-[400px]">
                 <CommitsList />
-              </ScrollArea>
+              </div>
 
               {/* Right Content */}
               <SubmitCommits />

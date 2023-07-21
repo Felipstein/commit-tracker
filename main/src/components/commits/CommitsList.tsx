@@ -8,6 +8,7 @@ import { useCommitsStore } from '@/stores/CommitsStore'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 import { Checkbox } from '../ui/checkbox'
 import { Label } from '../ui/label'
+import { ScrollArea, ScrollBar } from '../ui/scroll-area'
 
 export function CommitsList() {
   const {
@@ -37,7 +38,7 @@ export function CommitsList() {
   }, [commits, submitStatus, byUsername])
 
   return (
-    <div className="flow-root w-96">
+    <div className="flow-root h-full w-full">
       <header className="w-full flex justify-between items-center gap-3">
         <span className="text-xs opacity-40">
           {commitsFiltered.length}{' '}
@@ -80,9 +81,9 @@ export function CommitsList() {
       )}
 
       {commitsFiltered.length > 0 && (
-        <ul role="list" className="-mb-8 w-full">
+        <ScrollArea className="-mb-8 w-full h-full truncate pr-2">
           {commitsFiltered.map((commit, index) => (
-            <li key={commit.id}>
+            <li key={commit.id} className="block">
               <CommitCard
                 commit={commit}
                 isLast={index === commitsFiltered.length - 1}
@@ -92,7 +93,7 @@ export function CommitsList() {
               />
             </li>
           ))}
-        </ul>
+        </ScrollArea>
       )}
     </div>
   )
