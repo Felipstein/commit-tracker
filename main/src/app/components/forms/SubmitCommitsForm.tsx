@@ -22,10 +22,6 @@ import { useToast } from '@/components/ui/use-toast'
 import { ToastAction } from '@/components/ui/toast'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 import { useCommitsStore } from '@/stores/CommitsStore'
-import { ChangeEvent, useState } from 'react'
-import { PlusIcon, X } from 'lucide-react'
-import Image from 'next/image'
-import { cn } from '@/lib/utils'
 
 const submitCommitSchema = z.object({
   description: z.string().optional(),
@@ -40,7 +36,7 @@ export interface SubmitCommitsFormProps {
 export function SubmitCommitsForm({
   unsubmittedCommitsSelected,
 }: SubmitCommitsFormProps) {
-  const [files, setFiles] = useState<File[]>([])
+  // const [files, setFiles] = useState<File[]>([])
 
   const form = useForm<SubmitCommitsFormData>({
     resolver: zodResolver(submitCommitSchema),
@@ -48,25 +44,25 @@ export function SubmitCommitsForm({
 
   const { toast } = useToast()
 
-  function onSelectImages(event: ChangeEvent<HTMLInputElement>) {
-    const { files } = event.target
+  // function onSelectImages(event: ChangeEvent<HTMLInputElement>) {
+  //   const { files } = event.target
 
-    if (!files) {
-      return
-    }
+  //   if (!files) {
+  //     return
+  //   }
 
-    const filesFixed: File[] = []
+  //   const filesFixed: File[] = []
 
-    for (let i = 0; i < files.length; i++) {
-      filesFixed.push(files[i])
-    }
+  //   for (let i = 0; i < files.length; i++) {
+  //     filesFixed.push(files[i])
+  //   }
 
-    setFiles((prevState) => [...prevState, ...filesFixed])
-  }
+  //   setFiles((prevState) => [...prevState, ...filesFixed])
+  // }
 
-  function onRemoveImage(file: File) {
-    setFiles((prevState) => prevState.filter((fileObj) => fileObj !== file))
-  }
+  // function onRemoveImage(file: File) {
+  //   setFiles((prevState) => prevState.filter((fileObj) => fileObj !== file))
+  // }
 
   async function submitCommits(data: SubmitCommitsFormData) {
     try {
@@ -75,6 +71,7 @@ export function SubmitCommitsForm({
       const commits = await submitCommitsAction({
         description: data.description || null,
         commitIds,
+        imageUrls: [],
       })
 
       toast({
@@ -113,7 +110,7 @@ export function SubmitCommitsForm({
           name="description"
           render={({ field }) => (
             <>
-              <label
+              {/* <label
                 htmlFor="images"
                 className="relative flex flex-col gap-2 cursor-pointer"
               >
@@ -185,7 +182,7 @@ export function SubmitCommitsForm({
                     </ul>
                   )}
                 </div>
-              </label>
+              </label> */}
 
               <FormItem>
                 <FormLabel className="flex items-center gap-2">

@@ -7,6 +7,7 @@ import { CommitWithSubmitInfo } from '@/@types/commit.type'
 
 export async function submitCommitsAction({
   description,
+  imageUrls = [],
   commitIds,
 }: SubmitCommitRequest) {
   if (commitIds.length === 0) {
@@ -14,7 +15,7 @@ export async function submitCommitsAction({
   }
 
   await prisma.commitsSubmit.createMany({
-    data: commitIds.map((commitId) => ({ commitId, description })),
+    data: commitIds.map((commitId) => ({ commitId, description, imageUrls })),
   })
 
   return (await prisma.commit.findMany({
