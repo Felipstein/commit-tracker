@@ -4,6 +4,8 @@ import fs from 'fs'
 import { SubmitCommitRequest } from '@/@types/submit-commit.dto'
 import { prisma } from '@/lib/prisma'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
+import { submitCommitService } from '@/service/submit-commit.service'
+import chalk from 'chalk'
 
 export async function submitCommitsAction({
   description,
@@ -14,13 +16,36 @@ export async function submitCommitsAction({
     throw new Error('No commitIds provided.')
   }
 
-  await prisma.commitsSubmit.createMany({
-    data: commitIds.map((commitId) => ({ commitId, description, imageUrls })),
+  console.info(chalk.gray('\ncreating commits submit in database...'))
+
+  const { id: commitsSubmitId } = await prisma.commitsSubmit.create({
+    data: {
+      description,
+      imageUrls,
+      commits: { connect: commitIds.map((id) => ({ id })) },
+    },
   })
 
-  return (await prisma.commit.findMany({
+  console.info(chalk.green(`successfully created!`))
+  console.info(chalk.gray('\nsubmitting feedback to slack...'))
+
+  try {
+    await submitCommitService.submitCommitToSlack(commitsSubmitId)
+  } catch (err) {
+    console.info(chalk.red(`failed to submit to slack...`), chalk.red(err))
+
+    await prisma.commitsSubmit.delete({ where: { id: commitsSubmitId } })
+
+    throw err
+  }
+
+  console.info(chalk.green(`successfully submitted!\n`))
+
+  const commitsUpdated = await prisma.commit.findMany({
     include: { submitInfo: true },
-  })) as CommitWithSubmitInfo[]
+  })
+
+  return commitsUpdated as CommitWithSubmitInfo[]
 }
 
 /**
@@ -29,9 +54,11 @@ export async function submitCommitsAction({
 export async function unsubmitCommitsAction() {
   await prisma.commitsSubmit.deleteMany()
 
-  return (await prisma.commit.findMany({
+  const commitsUpdated = await prisma.commit.findMany({
     include: { submitInfo: true },
-  })) as CommitWithSubmitInfo[]
+  })
+
+  return commitsUpdated as CommitWithSubmitInfo[]
 }
 
 /**

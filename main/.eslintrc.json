@@ -1,7 +1,9 @@
 {
   "extends": ["next/core-web-vitals", "@rocketseat/eslint-config/next"],
   "rules": {
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-useless-constructor": "off",
+    "@typescript-eslint/no-non-null-assertion": "off"
   },
   "ignorePatterns": [
     "src/app/globals.css"
