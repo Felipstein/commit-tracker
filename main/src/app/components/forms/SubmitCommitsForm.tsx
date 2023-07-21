@@ -36,8 +36,6 @@ export interface SubmitCommitsFormProps {
 export function SubmitCommitsForm({
   unsubmittedCommitsSelected,
 }: SubmitCommitsFormProps) {
-  const clearSelectCommitIds = useCommitsStore((s) => s.clearSelectCommitIds)
-
   const form = useForm<SubmitCommitsFormData>({
     resolver: zodResolver(submitCommitSchema),
   })
@@ -46,9 +44,11 @@ export function SubmitCommitsForm({
 
   async function submitCommits(data: SubmitCommitsFormData) {
     try {
+      const commitIds = unsubmittedCommitsSelected.map((commit) => commit.id)
+
       const commits = (await submitCommitsAction({
         description: data.description || null,
-        commitIds: unsubmittedCommitsSelected.map((commit) => commit.id),
+        commitIds,
       })) as CommitWithSubmitInfo[]
 
       toast({
@@ -57,8 +57,12 @@ export function SubmitCommitsForm({
 
       form.setValue('description', '')
 
-      useCommitsStore.setState({ commits })
-      clearSelectCommitIds()
+      useCommitsStore.setState({
+        commits,
+        commitIdsSelected: commits
+          .filter((commit) => !commit.submitInfo)
+          .map((commit) => commit.id),
+      })
     } catch (err: any) {
       toast({
         title: 'There was a problem with your submit request.',
