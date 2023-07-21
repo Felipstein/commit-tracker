@@ -43,7 +43,7 @@ const InputTag = React.forwardRef<HTMLInputElement, InputProps>(
       form.setValue('tags', tags, { shouldValidate: true })
     }
 
-    const height = ulRef.current?.getBoundingClientRect().height ?? NaN
+    const height = ulRef.current?.getBoundingClientRect().height ?? 0
 
     return (
       <div className="relative">
