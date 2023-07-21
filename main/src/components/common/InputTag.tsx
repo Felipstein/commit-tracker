@@ -13,14 +13,23 @@ export type InputProps = Omit<
 
 const InputTag = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, onChange, ...props }, ref) => {
+    const [originalValue, setOriginalValue] = React.useState('')
+
     const ulRef = React.useRef<HTMLUListElement>(null)
 
     const form = useFormContext()
 
     const tags = form.watch('tags')
 
+    React.useEffect(() => {
+      if (originalValue && tags.length === 0) {
+        setOriginalValue('')
+      }
+    }, [originalValue, tags])
+
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-      // Remove repeated spaces
+      setOriginalValue(event.target.value)
+
       const cleanValue = event.target.value
         .replace(/,/g, ' ')
         .replace(/\s+/g, ' ')
@@ -49,6 +58,7 @@ const InputTag = React.forwardRef<HTMLInputElement, InputProps>(
             height: Math.max(40, height),
           }}
           ref={ref}
+          value={originalValue}
           onChange={handleChange}
           placeholder="Put here some tags separated by spaces or commas"
           {...props}

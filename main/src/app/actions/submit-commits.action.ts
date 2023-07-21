@@ -27,6 +27,7 @@ export async function submitCommitsAction({
     data: {
       description,
       imageUrls,
+      tags,
       commits: { connect: commitIds.map((id) => ({ id })) },
     },
   })

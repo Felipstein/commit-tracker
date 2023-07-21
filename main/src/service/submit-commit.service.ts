@@ -32,7 +32,7 @@ export default class SubmitCommitService {
     )
 
     const messageBlocks = [
-      '*#feat #v2 #frontend*',
+      `*${commitsSubmit.tags.map((tag) => `#${tag}`).join(' ')}*`,
       commitsSubmit.description,
       links.join('\n'),
     ].filter((messageBlock) => !!messageBlock) as string[]

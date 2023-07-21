@@ -109,8 +109,7 @@ export function SubmitCommitsForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((data) => console.log(data))}
-        // onSubmit={form.handleSubmit(submitCommits)}
+        onSubmit={form.handleSubmit(submitCommits)}
         noValidate
         className="space-y-8 w-96"
       >
