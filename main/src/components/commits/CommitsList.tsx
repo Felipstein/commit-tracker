@@ -39,32 +39,37 @@ export function CommitsList() {
 
   return (
     <div className="flow-root h-full w-full">
-      <header className="flex w-full items-center justify-between gap-3">
-        <span className="text-xs opacity-40">
-          {commitsFiltered.length}{' '}
-          {submitStatus === 'not-submitted'
-            ? `unsubmitted commit${commitsFiltered.length > 1 ? 's' : ''}`
-            : submitStatus === 'submitted'
-            ? `submitted commit${commitsFiltered.length > 1 ? 's' : ''}`
-            : `commit${commitsFiltered.length > 1 ? 's' : ''}`}
-        </span>
+      {commitsFiltered.length > 0 && (
+        <header className="flex w-full items-center justify-between gap-3">
+          <span className="text-xs opacity-40">
+            {commitsFiltered.length}{' '}
+            {submitStatus === 'not-submitted'
+              ? `unsubmitted commit${commitsFiltered.length > 1 ? 's' : ''}`
+              : submitStatus === 'submitted'
+              ? `submitted commit${commitsFiltered.length > 1 ? 's' : ''}`
+              : `commit${commitsFiltered.length > 1 ? 's' : ''}`}
+          </span>
 
-        {submitStatus === 'not-submitted' && (
-          <div className="mb-2 flex items-center gap-1">
-            <Checkbox
-              id="select-all"
-              checked={commitIdsSelected.length === commitsFiltered.length}
-              onClick={toggleSelectAllCommitIds}
-              className="flex h-[12px] w-[12px]"
-              classNameForIcon="w-3 h-3"
-            />
+          {submitStatus === 'not-submitted' && (
+            <div className="mb-2 flex items-center gap-1">
+              <Checkbox
+                id="select-all"
+                checked={commitIdsSelected.length === commitsFiltered.length}
+                onClick={toggleSelectAllCommitIds}
+                className="flex h-[12px] w-[12px]"
+                classNameForIcon="w-3 h-3"
+              />
 
-            <Label htmlFor="select-all" className="mt-[2px] text-xs opacity-60">
-              Select all
-            </Label>
-          </div>
-        )}
-      </header>
+              <Label
+                htmlFor="select-all"
+                className="mt-[2px] text-xs opacity-60"
+              >
+                Select all
+              </Label>
+            </div>
+          )}
+        </header>
+      )}
 
       {commits.length === 0 && <CommitsEmpty />}
 
