@@ -9,7 +9,7 @@ import { Footer } from './components/Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Metrito - Commit Tracker',
+  title: 'Commit Tracker',
 }
 
 export default function RootLayout({
