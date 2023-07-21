@@ -22,7 +22,6 @@ import { useToast } from '@/components/ui/use-toast'
 import { ToastAction } from '@/components/ui/toast'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 import { useCommitsStore } from '@/stores/CommitsStore'
-import { useEffect, useRef } from 'react'
 
 const submitCommitSchema = z.object({
   description: z.string().optional(),
@@ -37,9 +36,6 @@ export interface SubmitCommitsFormProps {
 export function SubmitCommitsForm({
   unsubmittedCommitsSelected,
 }: SubmitCommitsFormProps) {
-  const awaitCommitsListUpdate = useRef(false)
-
-  const commits = useCommitsStore((s) => s.commits)
   const clearSelectCommitIds = useCommitsStore((s) => s.clearSelectCommitIds)
 
   const form = useForm<SubmitCommitsFormData>({
@@ -48,26 +44,21 @@ export function SubmitCommitsForm({
 
   const { toast } = useToast()
 
-  useEffect(() => {
-    if (awaitCommitsListUpdate.current) {
-      awaitCommitsListUpdate.current = false
-
-      clearSelectCommitIds()
-    }
-  }, [commits, clearSelectCommitIds])
-
   async function submitCommits(data: SubmitCommitsFormData) {
     try {
-      await submitCommitsAction({
+      const commits = (await submitCommitsAction({
         description: data.description || null,
         commitIds: unsubmittedCommitsSelected.map((commit) => commit.id),
-      })
+      })) as CommitWithSubmitInfo[]
 
       toast({
         description: 'Commits submitted!',
       })
 
       form.setValue('description', '')
+
+      useCommitsStore.setState({ commits })
+      clearSelectCommitIds()
     } catch (err: any) {
       toast({
         title: 'There was a problem with your submit request.',
@@ -134,7 +125,14 @@ export function SubmitCommitsForm({
               <Button
                 type="button"
                 variant="destructive"
-                onClick={() => unsubmitCommitsAction()}
+                onClick={async () => {
+                  const commits =
+                    (await unsubmitCommitsAction()) as CommitWithSubmitInfo[]
+                  useCommitsStore.setState({
+                    commits,
+                    commitIdsSelected: commits.map((commit) => commit.id),
+                  })
+                }}
               >
                 Unsubmitt all (DEBUG)
               </Button>

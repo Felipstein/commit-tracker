@@ -1,7 +1,6 @@
 import { CommitsList } from '@/components/commits/CommitsList'
 import { prisma } from '@/lib/prisma'
 import { CollaboratorsList } from './components/CollaboratorsList'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { SubmitCommits } from './components/SubmitCommits'
 import { CommitSubmittedToggle } from './components/CommitSubmittedToggle'
 import { CommitsStoreInitializer } from '@/stores/initializers/CommitsStoreInitializer'

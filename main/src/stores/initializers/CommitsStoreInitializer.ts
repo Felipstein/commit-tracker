@@ -2,6 +2,7 @@
 
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 import { useCommitsStore } from '../CommitsStore'
+import { useRef } from 'react'
 
 export interface CommitsStoreInitializerProps {
   commits: CommitWithSubmitInfo[]
@@ -10,12 +11,17 @@ export interface CommitsStoreInitializerProps {
 export function CommitsStoreInitializer({
   commits,
 }: CommitsStoreInitializerProps) {
-  useCommitsStore.setState({
-    commits,
-    commitIdsSelected: commits
-      .filter((commit) => !commit.submitInfo)
-      .map((commit) => commit.id),
-  })
+  const initialized = useRef(false)
+
+  if (!initialized.current) {
+    initialized.current = true
+    useCommitsStore.setState({
+      commits,
+      commitIdsSelected: commits
+        .filter((commit) => !commit.submitInfo)
+        .map((commit) => commit.id),
+    })
+  }
 
   return null
 }

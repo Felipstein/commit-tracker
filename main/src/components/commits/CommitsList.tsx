@@ -8,7 +8,7 @@ import { useCommitsStore } from '@/stores/CommitsStore'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 import { Checkbox } from '../ui/checkbox'
 import { Label } from '../ui/label'
-import { ScrollArea, ScrollBar } from '../ui/scroll-area'
+import { ScrollArea } from '../ui/scroll-area'
 
 export function CommitsList() {
   const {

@@ -3,7 +3,6 @@
 import fs from 'fs'
 import { SubmitCommitRequest } from '@/@types/submit-commit.dto'
 import { prisma } from '@/lib/prisma'
-import { revalidatePath } from 'next/cache'
 
 export async function submitCommitsAction({
   description,
@@ -17,7 +16,7 @@ export async function submitCommitsAction({
     data: commitIds.map((commitId) => ({ commitId, description })),
   })
 
-  revalidatePath('/')
+  return await prisma.commit.findMany({ include: { submitInfo: true } })
 }
 
 /**
@@ -26,7 +25,7 @@ export async function submitCommitsAction({
 export async function unsubmitCommitsAction() {
   await prisma.commitsSubmit.deleteMany()
 
-  revalidatePath('/')
+  return await prisma.commit.findMany({ include: { submitInfo: true } })
 }
 
 /**
