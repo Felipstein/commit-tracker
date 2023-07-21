@@ -8,10 +8,15 @@ import { submitCommitService } from '@/service/submit-commit.service'
 import chalk from 'chalk'
 
 export async function submitCommitsAction({
+  tags,
   description,
   imageUrls = [],
   commitIds,
 }: SubmitCommitRequest) {
+  if (tags.length === 0) {
+    throw new Error('Add at least one tag.')
+  }
+
   if (commitIds.length === 0) {
     throw new Error('No commitIds provided.')
   }

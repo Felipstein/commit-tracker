@@ -24,6 +24,7 @@ model Commit {
 
 model CommitsSubmit {
   id          String   @id @default(cuid())
+  tags        String[]
   description String?
   imageUrls   String[]
   submittedAt DateTime @default(now())

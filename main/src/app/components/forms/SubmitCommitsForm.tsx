@@ -22,8 +22,10 @@ import { useToast } from '@/components/ui/use-toast'
 import { ToastAction } from '@/components/ui/toast'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 import { useCommitsStore } from '@/stores/CommitsStore'
+import { InputTag } from '@/components/common/InputTag'
 
 const submitCommitSchema = z.object({
+  tags: z.array(z.string()).min(1, { message: 'Add at least one tag.' }),
   description: z.string().optional(),
 })
 
@@ -40,6 +42,9 @@ export function SubmitCommitsForm({
 
   const form = useForm<SubmitCommitsFormData>({
     resolver: zodResolver(submitCommitSchema),
+    defaultValues: {
+      tags: [],
+    },
   })
 
   const { toast } = useToast()
@@ -69,6 +74,7 @@ export function SubmitCommitsForm({
       const commitIds = unsubmittedCommitsSelected.map((commit) => commit.id)
 
       const commits = await submitCommitsAction({
+        tags: data.tags,
         description: data.description || null,
         commitIds,
         imageUrls: [],
@@ -78,6 +84,7 @@ export function SubmitCommitsForm({
         description: 'Commits submitted!',
       })
 
+      form.setValue('tags', [])
       form.setValue('description', '')
 
       useCommitsStore.setState({
@@ -102,7 +109,8 @@ export function SubmitCommitsForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(submitCommits)}
+        onSubmit={form.handleSubmit((data) => console.log(data))}
+        // onSubmit={form.handleSubmit(submitCommits)}
         noValidate
         className="space-y-8 w-96"
       >
@@ -183,6 +191,22 @@ export function SubmitCommitsForm({
                   )}
                 </div>
               </label> */}
+
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <span className="opacity-80 leading-relaxed">Tags</span>
+
+                  <small className="text-xs opacity-20">
+                    require at least one
+                  </small>
+                </FormLabel>
+
+                <FormControl>
+                  <InputTag />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
 
               <FormItem>
                 <FormLabel className="flex items-center gap-2">
