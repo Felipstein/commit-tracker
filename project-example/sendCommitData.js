@@ -5,7 +5,8 @@ const { z } = require('zod');
 const commitTrackerUrl = process.env.COMMIT_TRACKER_URL;
 
 if(!commitTrackerUrl) {
-  throw new Error(chalk.red('COMMIT_TRACKER_URL is not defined in .env file.'));
+  console.error(chalk.red('COMMIT_TRACKER_URL is not defined in .env file.'));
+  process.exit(0);
 }
 
 const MAIN_APP_ENDPOINT = `${commitTrackerUrl}/api/commits`;
