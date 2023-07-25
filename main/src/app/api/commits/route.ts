@@ -52,18 +52,17 @@ export async function POST(req: NextRequest) {
   }
 
   let committedAtFixed
-  const fixTimeZoneDays = process.env.FIX_TIME_ZONE_DAYS as unknown as number
+  const fixTimeZoneHours = process.env.FIX_TIME_ZONE_HOURS as unknown as number
 
   if (
-    typeof fixTimeZoneDays === 'number' ||
-    typeof fixTimeZoneDays === 'string'
+    typeof fixTimeZoneHours === 'number' ||
+    typeof fixTimeZoneHours === 'string'
   ) {
     const committedAtInMS = new Date(committedAt).getTime()
     const fixTimeZoneMs =
-      (typeof fixTimeZoneDays === 'string'
-        ? Number(fixTimeZoneDays)
-        : fixTimeZoneDays) *
-      24 *
+      (typeof fixTimeZoneHours === 'string'
+        ? Number(fixTimeZoneHours)
+        : fixTimeZoneHours) *
       60 *
       60 *
       1000
