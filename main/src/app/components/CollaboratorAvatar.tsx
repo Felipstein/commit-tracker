@@ -56,7 +56,8 @@ export function CollaboratorAvatar({
                 className,
               )}
               classNameForImage={cn('border-2 border-transparent', {
-                'border-zinc-800 dark:border-zinc-200': isSelected,
+                'border-zinc-800 dark:border-zinc-200':
+                  isSelected && !interactionDisabled,
               })}
             />
           </button>

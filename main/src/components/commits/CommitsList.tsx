@@ -13,7 +13,7 @@ import { ScrollArea } from '../ui/scroll-area'
 export function CommitsList() {
   const {
     commits,
-    commitIdsSelected,
+    commitIdsSelected: allCommitIdsSelected,
     toggleSelectCommitId,
     toggleSelectAllCommitIds,
   } = useCommitsStore()
@@ -37,6 +37,16 @@ export function CommitsList() {
     )
   }, [commits, submitStatus, byUsername])
 
+  const commitIdsSelected = useMemo(
+    () =>
+      allCommitIdsSelected.filter((commitId) => {
+        const commit = commits.find((commit) => commit.id === commitId)!
+
+        return commit.authorName === byUsername
+      }),
+    [allCommitIdsSelected, byUsername, commits],
+  )
+
   return (
     <div className="flow-root h-full w-full">
       {commitsFiltered.length > 0 && (
@@ -50,7 +60,7 @@ export function CommitsList() {
               : `commit${commitsFiltered.length > 1 ? 's' : ''}`}
           </span>
 
-          {submitStatus === 'not-submitted' && (
+          {submitStatus === 'not-submitted' && byUsername && (
             <div className="mb-2 flex items-center gap-1">
               <Checkbox
                 id="select-all"
@@ -92,7 +102,9 @@ export function CommitsList() {
               <CommitCard
                 commit={commit}
                 isLast={index === commitsFiltered.length - 1}
-                isSelectable={submitStatus === 'not-submitted'}
+                isSelectable={Boolean(
+                  submitStatus === 'not-submitted' && byUsername,
+                )}
                 isSelected={commitIdsSelected.includes(commit.id)}
                 onClick={() => toggleSelectCommitId(commit.id)}
               />

@@ -34,14 +34,52 @@ export async function POST(req: NextRequest) {
     )
   }
 
+  const redirectUrlRegex = /^git@github\.com:(.+)\/(.+)\/commit\/(.+)/
+  const urlMatched = redirectUrl.match(redirectUrlRegex)
+
+  let authorNameFixed
+  let redirecUrlFixed
+
+  if (urlMatched) {
+    authorNameFixed = urlMatched[1]
+    const repository = urlMatched[2]
+    const commitHash = urlMatched[3]
+
+    redirecUrlFixed = `https://github.com/Metrito/${repository}/commit/${commitHash}`
+  } else {
+    authorNameFixed = authorName
+    redirecUrlFixed = redirectUrl
+  }
+
+  let committedAtFixed
+  const fixTimeZoneHours = process.env.FIX_TIME_ZONE_HOURS as unknown as number
+
+  if (
+    typeof fixTimeZoneHours === 'number' ||
+    typeof fixTimeZoneHours === 'string'
+  ) {
+    const committedAtInMS = new Date(committedAt).getTime()
+    const fixTimeZoneMs =
+      (typeof fixTimeZoneHours === 'string'
+        ? Number(fixTimeZoneHours)
+        : fixTimeZoneHours) *
+      60 *
+      60 *
+      1000
+
+    committedAtFixed = new Date(committedAtInMS + fixTimeZoneMs)
+  } else {
+    committedAtFixed = new Date(committedAt)
+  }
+
   const commitData = await prisma.commit.create({
     data: {
       hash: commitHash,
       message: commitMessage,
-      authorName,
+      authorName: authorNameFixed,
       authorEmail,
-      committedAt: new Date(committedAt),
-      redirectUrl,
+      committedAt: committedAtFixed,
+      redirectUrl: redirecUrlFixed,
     },
   })
 

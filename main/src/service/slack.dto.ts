@@ -2,6 +2,8 @@ export type SlackGenericResponse<T = any> = T & {
   ok: boolean
   error?: string
   warning?: string
+  needed?: string
+  provided?: string
   response_metadata: object & {
     messages?: string[]
     warnings?: string[]
@@ -110,3 +112,8 @@ export type PostMessageResponse = SlackGenericResponse<{
     parent_user_id: string
   }
 }>
+
+export type CustomEntityPostMessage = {
+  username: string
+  icon_url: string
+}

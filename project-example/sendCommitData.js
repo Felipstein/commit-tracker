@@ -4,7 +4,7 @@ const axios = require('axios');
 const chalk = require('chalk');
 const { z } = require('zod');
 
-if(process.env.ENABLE_COMMIT_TRACKER !== true) {
+if(process.env.ENABLE_COMMIT_TRACKER !== true && process.env.ENABLE_COMMIT_TRACKER !== 'true') {
   process.exit(0);
 }
 

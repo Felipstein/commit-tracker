@@ -17,6 +17,8 @@ export default class SubmitCommitService {
 
     const commits = commitsSubmit.commits
 
+    const authorName = commits[0].authorName
+
     const channel = await slackService.getChannel('daily-it')
 
     const messages = await slackService.getMessagesHistory(channel.id)
@@ -42,6 +44,10 @@ export default class SubmitCommitService {
         channel.id,
         lastMessage.ts,
         messageBlocks,
+        {
+          icon_url: `https://github.com/${authorName}.png`,
+          username: authorName,
+        },
       )
     } catch (err) {
       if (links.length > 22) {

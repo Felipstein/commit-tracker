@@ -2,11 +2,13 @@ import axios, { AxiosInstance } from 'axios'
 import {
   ConversationsHistoryResponse,
   ConversationsListResponse,
+  CustomEntityPostMessage,
   MessageBlock,
   PostMessageRequest,
   PostMessageResponse,
   SlackGenericResponse,
 } from './slack.dto'
+import chalk from 'chalk'
 
 const oauthUserToken = process.env.SLACK_OAUTH_USER_TOKEN
 
@@ -64,6 +66,7 @@ export default class SlackService {
     channelId: string,
     threadTs: string,
     messageBlocks: string[],
+    customEntity: CustomEntityPostMessage = {} as CustomEntityPostMessage,
   ) {
     const blocks = messageBlocks.map((messageBlock) => ({
       type: 'section',
@@ -77,6 +80,7 @@ export default class SlackService {
       channel: channelId,
       thread_ts: threadTs,
       blocks,
+      ...customEntity,
     }
 
     const { data } = await this.api.post<PostMessageResponse>(
@@ -100,7 +104,9 @@ slackApi.interceptors.response.use((response) => {
 
   if (!data.ok) {
     const firstMessage =
-      data.response_metadata!.messages?.[0] || 'Unknown error'
+      data.response_metadata?.messages?.[0] || data.error === 'missing_scope'
+        ? data.needed
+        : 'Unknown error'
 
     throw new Error(`${data.error}: ${firstMessage}`)
   }
