@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from 'axios'
 import {
   ConversationsHistoryResponse,
   ConversationsListResponse,
+  CustomEntityPostMessage,
   MessageBlock,
   PostMessageRequest,
   PostMessageResponse,
@@ -57,6 +58,8 @@ export default class SlackService {
       throw new Error('No messages found.')
     }
 
+    console.log(messages)
+
     return messages
   }
 
@@ -64,6 +67,7 @@ export default class SlackService {
     channelId: string,
     threadTs: string,
     messageBlocks: string[],
+    customEntity: CustomEntityPostMessage = {} as CustomEntityPostMessage,
   ) {
     const blocks = messageBlocks.map((messageBlock) => ({
       type: 'section',
@@ -77,6 +81,7 @@ export default class SlackService {
       channel: channelId,
       thread_ts: threadTs,
       blocks,
+      ...customEntity,
     }
 
     const { data } = await this.api.post<PostMessageResponse>(

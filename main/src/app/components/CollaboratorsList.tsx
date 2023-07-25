@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { CollaboratorAvatar } from './CollaboratorAvatar'
 import { cn } from '@/lib/utils'
 import { useCommitsFilterStore } from '@/stores/CommitsFilterStore'
@@ -25,6 +25,12 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
 
     return usernamesList
   }, [userSelected, showAll, usernames])
+
+  useEffect(() => {
+    if (usernamesList.length === 1) {
+      setByUsername(usernamesList[0])
+    }
+  }, [usernamesList, setByUsername])
 
   function handleSelectUsername(username: string) {
     setUserSelected(username)

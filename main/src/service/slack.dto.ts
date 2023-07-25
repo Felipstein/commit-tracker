@@ -110,3 +110,8 @@ export type PostMessageResponse = SlackGenericResponse<{
     parent_user_id: string
   }
 }>
+
+export type CustomEntityPostMessage = {
+  username: string
+  icon_url: string
+}
