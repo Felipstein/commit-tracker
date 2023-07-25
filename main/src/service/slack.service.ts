@@ -8,6 +8,7 @@ import {
   PostMessageResponse,
   SlackGenericResponse,
 } from './slack.dto'
+import chalk from 'chalk'
 
 const oauthUserToken = process.env.SLACK_OAUTH_USER_TOKEN
 
@@ -58,8 +59,6 @@ export default class SlackService {
       throw new Error('No messages found.')
     }
 
-    console.log(messages)
-
     return messages
   }
 
@@ -105,7 +104,9 @@ slackApi.interceptors.response.use((response) => {
 
   if (!data.ok) {
     const firstMessage =
-      data.response_metadata!.messages?.[0] || 'Unknown error'
+      data.response_metadata?.messages?.[0] || data.error === 'missing_scope'
+        ? data.needed
+        : 'Unknown error'
 
     throw new Error(`${data.error}: ${firstMessage}`)
   }

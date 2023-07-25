@@ -2,6 +2,8 @@ export type SlackGenericResponse<T = any> = T & {
   ok: boolean
   error?: string
   warning?: string
+  needed?: string
+  provided?: string
   response_metadata: object & {
     messages?: string[]
     warnings?: string[]
