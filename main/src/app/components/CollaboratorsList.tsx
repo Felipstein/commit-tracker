@@ -27,19 +27,33 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
   }, [userSelected, showAll, usernames])
 
   useEffect(() => {
+    const username = localStorage.getItem('username-filter')
+
+    if (username) {
+      setUserSelected(username)
+      setByUsername(username)
+    }
+  }, [setByUsername])
+
+  useEffect(() => {
     if (usernamesList.length === 1) {
-      setByUsername(usernamesList[0])
+      const username = usernamesList[0]
+
+      setByUsername(username)
+      localStorage.setItem('username-filter', username)
     }
   }, [usernamesList, setByUsername])
 
   function handleSelectUsername(username: string) {
     setUserSelected(username)
     setByUsername(username)
+    localStorage.setItem('username-filter', username)
   }
 
   function handleCancelSelection() {
     setUserSelected(null)
     removeByUsername()
+    localStorage.removeItem('username-filter')
   }
 
   if (usernames.length === 0) {
