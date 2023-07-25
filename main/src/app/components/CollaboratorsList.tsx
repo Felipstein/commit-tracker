@@ -10,27 +10,26 @@ export interface CollaboratorsListProps {
 }
 
 export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
+  const byUsername = useCommitsFilterStore((s) => s.byUsername)
   const setByUsername = useCommitsFilterStore((s) => s.setByUsername)
   const removeByUsername = useCommitsFilterStore((s) => s.removeByUsername)
 
   const [showAll, setShowAll] = useState(false)
-  const [userSelected, setUserSelected] = useState<string | null>(null)
 
   const usernamesList = useMemo(() => {
     const usernamesList = showAll ? usernames : usernames.slice(0, 6)
 
-    if (!showAll && userSelected && !usernamesList.includes(userSelected)) {
-      usernamesList.push(userSelected)
+    if (!showAll && byUsername && !usernamesList.includes(byUsername)) {
+      usernamesList.push(byUsername)
     }
 
     return usernamesList
-  }, [userSelected, showAll, usernames])
+  }, [showAll, byUsername, usernames])
 
   useEffect(() => {
     const username = localStorage.getItem('username-filter')
 
     if (username) {
-      setUserSelected(username)
       setByUsername(username)
     }
   }, [setByUsername])
@@ -45,13 +44,11 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
   }, [usernamesList, setByUsername])
 
   function handleSelectUsername(username: string) {
-    setUserSelected(username)
     setByUsername(username)
     localStorage.setItem('username-filter', username)
   }
 
   function handleCancelSelection() {
-    setUserSelected(null)
     removeByUsername()
     localStorage.removeItem('username-filter')
   }
@@ -75,9 +72,9 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
           </span>
         )}
 
-        {usernames.length > 1 && userSelected && (
+        {usernames.length > 1 && byUsername && (
           <span className="text-xs text-zinc-300 dark:text-zinc-800">
-            Filtering by {userSelected}
+            Filtering by {byUsername}
           </span>
         )}
       </header>
@@ -91,12 +88,12 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
                 usernames.length > 1
                   ? cn({
                       '-ml-6 group-hover/avatar:ml-1': index > 0,
-                      'ml-1': showAll || userSelected,
+                      'ml-1': showAll || byUsername,
                     })
                   : undefined
               }
-              isSelected={userSelected === username}
-              isNotSelected={userSelected ? userSelected !== username : false}
+              isSelected={byUsername === username}
+              isNotSelected={byUsername ? byUsername !== username : false}
               onSelect={() => handleSelectUsername(username)}
               onCancelSelection={handleCancelSelection}
               interactionDisabled={usernames.length === 1}
