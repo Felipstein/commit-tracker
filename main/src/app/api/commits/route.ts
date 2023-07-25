@@ -51,13 +51,25 @@ export async function POST(req: NextRequest) {
     redirecUrlFixed = redirectUrl
   }
 
+  let committedAtFixed
+  const fixTimeZoneDays = process.env.FIX_TIME_ZONE_DAYS as unknown as number
+
+  if (typeof fixTimeZoneDays === 'number') {
+    const committedAtInMS = new Date(committedAt).getTime()
+    const fixTimeZoneMs = fixTimeZoneDays * 24 * 60 * 60 * 1000
+
+    committedAtFixed = new Date(committedAtInMS + fixTimeZoneMs)
+  } else {
+    committedAtFixed = new Date(committedAt)
+  }
+
   const commitData = await prisma.commit.create({
     data: {
       hash: commitHash,
       message: commitMessage,
       authorName: authorNameFixed,
       authorEmail,
-      committedAt: new Date(committedAt),
+      committedAt: committedAtFixed,
       redirectUrl: redirecUrlFixed,
     },
   })
