@@ -34,14 +34,31 @@ export async function POST(req: NextRequest) {
     )
   }
 
+  const redirectUrlRegex = /^git@github\.com:(.+)\/(.+)\/commit\/(.+)/
+  const urlMatched = redirectUrl.match(redirectUrlRegex)
+
+  let authorNameFixed
+  let redirecUrlFixed
+
+  if (urlMatched) {
+    authorNameFixed = urlMatched[1]
+    const repository = urlMatched[2]
+    const commitHash = urlMatched[3]
+
+    redirecUrlFixed = `https://github.com/Metrito/${repository}/commit/${commitHash}`
+  } else {
+    authorNameFixed = authorName
+    redirecUrlFixed = redirectUrl
+  }
+
   const commitData = await prisma.commit.create({
     data: {
       hash: commitHash,
       message: commitMessage,
-      authorName,
+      authorName: authorNameFixed,
       authorEmail,
       committedAt: new Date(committedAt),
-      redirectUrl,
+      redirectUrl: redirecUrlFixed,
     },
   })
 
