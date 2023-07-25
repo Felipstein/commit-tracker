@@ -8,28 +8,34 @@ import { useMemo } from 'react'
 
 export function SubmitCommits() {
   const submitStatus = useCommitsFilterStore((s) => s.submitStatus)
+  const byUsername = useCommitsFilterStore((s) => s.byUsername)
 
   const commits = useCommitsStore((s) => s.commits)
   const commitIdsSelected = useCommitsStore((s) => s.commitIdsSelected)
 
-  const unsubmittedCommits = useMemo(
-    () => commits.filter((commit) => !commit.submitInfo),
-    [commits],
+  const unsubmittedCommitsOfUser = useMemo(
+    () =>
+      commits.filter(
+        (commit) =>
+          !commit.submitInfo &&
+          commit.authorName.toLowerCase() === byUsername?.toLowerCase(),
+      ),
+    [commits, byUsername],
   )
 
   const unsubmittedCommitsSelected = useMemo(
     () =>
-      unsubmittedCommits.filter((commit) =>
+      unsubmittedCommitsOfUser.filter((commit) =>
         commitIdsSelected.includes(commit.id),
       ),
-    [unsubmittedCommits, commitIdsSelected],
+    [unsubmittedCommitsOfUser, commitIdsSelected],
   )
 
   return (
     <div
       className={cn('space-y-6', {
         'pointer-events-none select-none opacity-30 dark:opacity-20':
-          submitStatus !== 'not-submitted',
+          submitStatus !== 'not-submitted' || !byUsername,
       })}
     >
       <header>
@@ -43,9 +49,10 @@ export function SubmitCommits() {
             {unsubmittedCommitsSelected.length > 1 ? 's' : ''}
           </span>
 
-          {unsubmittedCommits.length !== unsubmittedCommitsSelected.length && (
+          {unsubmittedCommitsOfUser.length !==
+            unsubmittedCommitsSelected.length && (
             <span className="text-[10px] opacity-30 dark:opacity-20">
-              {`of ${unsubmittedCommits.length} unsubmitted commits in total`}
+              {`of ${unsubmittedCommitsOfUser.length} unsubmitted commits in total`}
             </span>
           )}
         </div>
