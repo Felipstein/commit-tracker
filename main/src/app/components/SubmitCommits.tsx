@@ -91,7 +91,9 @@ export function SubmitCommits() {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger className="cursor-default">{children}</TooltipTrigger>
+        <TooltipTrigger className="cursor-default" asChild>
+          {children}
+        </TooltipTrigger>
         <TooltipContent>
           You should only submit commits from one person (preferably you)
         </TooltipContent>
