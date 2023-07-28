@@ -28,7 +28,7 @@ export default async function HomePage() {
 
       <div className="flex flex-1 items-center justify-center">
         <div className="space-y-12">
-          <header className="flex items-center justify-between gap-4">
+          <header className="mx-4 flex items-center justify-between gap-4">
             <CollaboratorsList usernames={users} />
 
             <div className="hidden max-[1365px]:block">
@@ -44,7 +44,7 @@ export default async function HomePage() {
 
             <div className="relative m-auto flex w-fit flex-col items-start gap-14 lg:flex-row lg:gap-20">
               {/* Left Content */}
-              <div className="h-fit w-[400px] lg:h-[60vh]">
+              <div className="h-fit w-full max-w-[400px] overflow-hidden lg:h-[60vh]">
                 <CommitsList />
               </div>
 

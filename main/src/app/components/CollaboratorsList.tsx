@@ -79,7 +79,7 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
         )}
       </header>
 
-      <ul className="group/avatar flex w-full items-center">
+      <ul className="group/avatar flex w-full flex-wrap items-center">
         {usernamesList.map((username, index) => (
           <li key={username}>
             <CollaboratorAvatar
