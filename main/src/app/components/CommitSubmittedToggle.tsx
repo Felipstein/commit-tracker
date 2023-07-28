@@ -13,7 +13,7 @@ export function CommitSubmittedToggle() {
   const changeSubmitStatus = useCommitsFilterStore((s) => s.changeSubmitStatus)
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="relative flex flex-col gap-2">
       <button
         type="button"
         className="flex items-center gap-1 text-xs opacity-30 hover:underline hover:opacity-50"
@@ -29,7 +29,7 @@ export function CommitSubmittedToggle() {
 
       <div
         className={cn(
-          'pointer-events-none flex -translate-y-6 scale-75 flex-col gap-0.5 opacity-0 transition',
+          'pointer-events-none right-0 top-6 flex -translate-y-6 scale-75 flex-col gap-0.5 opacity-0 transition max-[1366px]:absolute',
           {
             'pointer-events-auto translate-y-0 scale-100 opacity-100':
               showFilters,
@@ -39,7 +39,7 @@ export function CommitSubmittedToggle() {
         <Toggle
           data-state={submitStatus === 'not-submitted' ? 'on' : 'off'}
           onClick={() => changeSubmitStatus('not-submitted')}
-          className={cn({
+          className={cn('whitespace-nowrap', {
             'bg-zinc-300 dark:bg-zinc-800': submitStatus === 'not-submitted',
           })}
         >
@@ -48,7 +48,7 @@ export function CommitSubmittedToggle() {
         <Toggle
           data-state={submitStatus === 'submitted' ? 'on' : 'off'}
           onClick={() => changeSubmitStatus('submitted')}
-          className={cn({
+          className={cn('whitespace-nowrap', {
             'bg-zinc-300 dark:bg-zinc-800': submitStatus === 'submitted',
           })}
         >
@@ -57,7 +57,7 @@ export function CommitSubmittedToggle() {
         <Toggle
           data-state={submitStatus === 'all' ? 'on' : 'off'}
           onClick={() => changeSubmitStatus('all')}
-          className={cn({
+          className={cn('whitespace-nowrap', {
             'bg-zinc-300 dark:bg-zinc-800': submitStatus === 'all',
           })}
         >
