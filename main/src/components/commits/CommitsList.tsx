@@ -3,12 +3,14 @@
 import { CommitCard } from './CommitCard'
 import { CommitsEmpty } from './CommitsEmpty'
 import { useCommitsFilterStore } from '@/stores/CommitsFilterStore'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useCommitsStore } from '@/stores/CommitsStore'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 import { Checkbox } from '../ui/checkbox'
 import { Label } from '../ui/label'
 import { ScrollArea } from '../ui/scroll-area'
+import { cn } from '@/lib/utils'
+import { ChevronDownIcon } from 'lucide-react'
 
 export function CommitsList() {
   const {
@@ -20,6 +22,8 @@ export function CommitsList() {
 
   const submitStatus = useCommitsFilterStore((s) => s.submitStatus)
   const byUsername = useCommitsFilterStore((s) => s.byUsername)
+
+  const [showList, setShowList] = useState(true)
 
   const commitsFiltered = useMemo(() => {
     const commitsFiltered = (
@@ -51,17 +55,33 @@ export function CommitsList() {
     <div className="flow-root h-full w-full">
       {commitsFiltered.length > 0 && (
         <header className="flex w-full items-center justify-between gap-3">
-          <span className="text-xs opacity-40">
-            {commitsFiltered.length}{' '}
-            {submitStatus === 'not-submitted'
-              ? `unsubmitted commit${commitsFiltered.length > 1 ? 's' : ''}`
-              : submitStatus === 'submitted'
-              ? `submitted commit${commitsFiltered.length > 1 ? 's' : ''}`
-              : `commit${commitsFiltered.length > 1 ? 's' : ''}`}
-          </span>
+          <button
+            type="button"
+            onClick={() => setShowList((prevState) => !prevState)}
+            className="flex items-center gap-1 opacity-40 transition hover:opacity-60"
+          >
+            <span className="text-xs">
+              {commitsFiltered.length}{' '}
+              {submitStatus === 'not-submitted'
+                ? `unsubmitted commit${commitsFiltered.length > 1 ? 's' : ''}`
+                : submitStatus === 'submitted'
+                ? `submitted commit${commitsFiltered.length > 1 ? 's' : ''}`
+                : `commit${commitsFiltered.length > 1 ? 's' : ''}`}
+            </span>
+
+            <ChevronDownIcon
+              className={cn('h-3 w-3', {
+                'rotate-180': showList,
+              })}
+            />
+          </button>
 
           {submitStatus === 'not-submitted' && byUsername && (
-            <div className="mb-2 flex items-center gap-1">
+            <div
+              className={cn('mb-2 flex items-center gap-1', {
+                'pointer-events-none invisible': !showList,
+              })}
+            >
               <Checkbox
                 id="select-all"
                 checked={commitIdsSelected.length === commitsFiltered.length}
@@ -96,21 +116,27 @@ export function CommitsList() {
       )}
 
       {commitsFiltered.length > 0 && (
-        <ScrollArea className="-mb-8 h-full w-full truncate pr-2">
-          {commitsFiltered.map((commit, index) => (
-            <li key={commit.id} className="block">
-              <CommitCard
-                commit={commit}
-                isLast={index === commitsFiltered.length - 1}
-                isSelectable={Boolean(
-                  submitStatus === 'not-submitted' && byUsername,
-                )}
-                isSelected={commitIdsSelected.includes(commit.id)}
-                onClick={() => toggleSelectCommitId(commit.id)}
-              />
-            </li>
-          ))}
-        </ScrollArea>
+        <ul
+          className={cn({
+            hidden: !showList,
+          })}
+        >
+          <ScrollArea className="-mb-8 h-full w-full truncate pr-2">
+            {commitsFiltered.map((commit, index) => (
+              <li key={commit.id} className="block">
+                <CommitCard
+                  commit={commit}
+                  isLast={index === commitsFiltered.length - 1}
+                  isSelectable={Boolean(
+                    submitStatus === 'not-submitted' && byUsername,
+                  )}
+                  isSelected={commitIdsSelected.includes(commit.id)}
+                  onClick={() => toggleSelectCommitId(commit.id)}
+                />
+              </li>
+            ))}
+          </ScrollArea>
+        </ul>
       )}
     </div>
   )
