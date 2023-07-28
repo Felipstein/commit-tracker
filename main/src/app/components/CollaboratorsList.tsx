@@ -58,7 +58,7 @@ export function CollaboratorsList({ usernames }: CollaboratorsListProps) {
   }
 
   return (
-    <div className="w-full space-y-2">
+    <div className="space-y-2">
       <header className="flex items-center gap-2.5">
         <h3 className="text-sm text-zinc-400 dark:text-zinc-700">
           {usernames.length > 1

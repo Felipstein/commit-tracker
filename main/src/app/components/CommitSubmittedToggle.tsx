@@ -29,7 +29,7 @@ export function CommitSubmittedToggle() {
 
       <div
         className={cn(
-          'pointer-events-none right-0 top-6 flex -translate-y-6 scale-75 flex-col gap-0.5 opacity-0 transition max-[1366px]:absolute',
+          'pointer-events-none right-0 top-6 z-10 flex -translate-y-6 scale-75 flex-col gap-0.5 rounded-md border border-zinc-100 bg-zinc-50 opacity-0 shadow-md transition dark:border-zinc-900 dark:bg-zinc-950 dark:shadow-zinc-800/10 max-[1366px]:absolute',
           {
             'pointer-events-auto translate-y-0 scale-100 opacity-100':
               showFilters,

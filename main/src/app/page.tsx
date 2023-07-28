@@ -6,6 +6,7 @@ import { CommitSubmittedToggle } from './components/CommitSubmittedToggle'
 import { CommitsStoreInitializer } from '@/stores/initializers/CommitsStoreInitializer'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 import commitsInJson from '../../tmp/commits.json'
+import { Separator } from '@/components/ui/separator'
 
 export default async function HomePage() {
   // const commits = await prisma.commit.findMany({
@@ -41,11 +42,13 @@ export default async function HomePage() {
               <CommitSubmittedToggle />
             </aside>
 
-            <div className="relative m-auto flex w-fit items-start gap-20">
+            <div className="relative m-auto flex w-fit flex-col items-start gap-14 lg:flex-row lg:gap-20">
               {/* Left Content */}
-              <div className="h-[60vh] w-[400px]">
+              <div className="h-fit w-[400px] lg:h-[60vh]">
                 <CommitsList />
               </div>
+
+              <Separator className="bg-zinc-200 dark:bg-zinc-900 lg:hidden" />
 
               {/* Right Content */}
               <SubmitCommits />
