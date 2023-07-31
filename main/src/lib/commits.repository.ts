@@ -18,15 +18,16 @@ export default class CommitsRepository {
   }
 
   private async getCommitsOfDatabase() {
-    const commitsInJson = await import('../../tmp/commits.json')
+    // const commitsInJson = await import('../../tmp/commits.json')
 
-    const commits = commitsInJson.sort(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      (a, b) => new Date(b.committedAt) - new Date(a.committedAt),
-    ) as unknown
+    // const commits = commitsInJson.sort(
+    //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //   // @ts-ignore
+    //   (a, b) => new Date(b.committedAt) - new Date(a.committedAt),
+    // ) as unknown
 
-    return commits as CommitWithSubmitInfo[]
+    // return commits as CommitWithSubmitInfo[]
+    return []
   }
 }
 
