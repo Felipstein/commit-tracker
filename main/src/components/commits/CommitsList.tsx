@@ -11,7 +11,6 @@ import { Label } from '../ui/label'
 import { ScrollArea } from '../ui/scroll-area'
 import { cn } from '@/lib/utils'
 import { ChevronDownIcon } from 'lucide-react'
-import { hidden } from 'chalk'
 
 export function CommitsList() {
   const {
