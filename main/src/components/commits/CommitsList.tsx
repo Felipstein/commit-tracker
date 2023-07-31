@@ -11,6 +11,7 @@ import { Label } from '../ui/label'
 import { ScrollArea } from '../ui/scroll-area'
 import { cn } from '@/lib/utils'
 import { ChevronDownIcon } from 'lucide-react'
+import { hidden } from 'chalk'
 
 export function CommitsList() {
   const {
@@ -117,7 +118,7 @@ export function CommitsList() {
 
       {commitsFiltered.length > 0 && (
         <ul
-          className={cn({
+          className={cn('h-full', {
             hidden: !showList,
           })}
         >

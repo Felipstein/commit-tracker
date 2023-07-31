@@ -180,7 +180,7 @@ export function SubmitCommitsForm({
       <form
         onSubmit={form.handleSubmit(submitCommits)}
         noValidate
-        className="w-96 space-y-8"
+        className="w-fit space-y-8"
       >
         <FormField
           name="description"
@@ -336,7 +336,7 @@ export function SubmitCommitsForm({
                 <Separator />
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <Button
                   type="button"
                   variant="secondary"
