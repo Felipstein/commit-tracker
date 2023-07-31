@@ -1,6 +1,5 @@
 import { Checkbox } from '@/components/ui/checkbox'
 import { cn } from '@/lib/utils'
-import { X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export interface CommitCardSelectProps {
@@ -35,14 +34,7 @@ export function CommitCardSelect({
       )}
 
       {!isSelected && (
-        <Checkbox
-          asChild
-          checked
-          className="flex items-center justify-center border-red-600/30 !bg-transparent !text-red-600 dark:border-red-400/30 dark:!text-red-400"
-          icon={X}
-        >
-          <div />
-        </Checkbox>
+        <div className="h-4 w-4 rounded border border-red-600/30 !bg-transparent !text-red-600 dark:border-red-400/30 dark:!text-red-400" />
       )}
     </div>
   )

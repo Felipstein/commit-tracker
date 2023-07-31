@@ -52,20 +52,36 @@ export function CommitCard({
           className={cn(
             'group flex w-full items-center justify-between gap-6 truncate rounded-md p-2 hover:bg-zinc-100 dark:hover:bg-zinc-900/20',
             {
-              'bg-red-400/10 hover:bg-red-600/10 dark:bg-red-600/10 dark:hover:bg-red-800/10':
+              'bg-red-400/10 opacity-70 hover:bg-red-600/10 dark:bg-red-600/10 dark:hover:bg-red-800/10':
                 !isSelected && isSelectable,
             },
           )}
         >
           <div className="flex flex-col items-start gap-1 truncate">
-            <span className="truncate text-sm font-medium text-zinc-900 dark:text-zinc-50">
+            <span
+              className={cn(
+                'truncate text-sm font-medium text-zinc-900 dark:text-zinc-50',
+                {
+                  'text-red-600 line-through dark:text-red-500':
+                    !isSelected && isSelectable,
+                },
+              )}
+            >
               {commit.message}
             </span>
 
             <footer className="flex items-end gap-2.5">
               <span className="text-xs text-zinc-400 dark:text-zinc-600">
                 committed by{' '}
-                <strong className="font-medium text-zinc-700 dark:text-zinc-300">
+                <strong
+                  className={cn(
+                    'font-medium text-zinc-700 dark:text-zinc-300',
+                    {
+                      'text-red-600 dark:text-red-500':
+                        !isSelected && isSelectable,
+                    },
+                  )}
+                >
                   {commit.authorName}
                 </strong>
               </span>
