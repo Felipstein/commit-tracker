@@ -52,7 +52,7 @@ export function CommitsList() {
   )
 
   return (
-    <div className="flow-root h-full w-full">
+    <div className="flow-root h-full w-80">
       {commitsFiltered.length > 0 && (
         <header className="flex w-full items-center justify-between gap-3">
           <button
