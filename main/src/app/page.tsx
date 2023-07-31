@@ -1,24 +1,15 @@
 import { CommitsList } from '@/components/commits/CommitsList'
-import { prisma } from '@/lib/prisma'
 import { CollaboratorsList } from './components/CollaboratorsList'
 import { SubmitCommits } from './components/SubmitCommits'
 import { CommitSubmittedToggle } from './components/CommitSubmittedToggle'
 import { CommitsStoreInitializer } from '@/stores/initializers/CommitsStoreInitializer'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 import { Separator } from '@/components/ui/separator'
-import commitsInJson from '../../tmp/commits.json'
+import { commitsRepo } from '@/lib/commits.repository'
 
 export default async function HomePage() {
-  const commits = await prisma.commit.findMany({
-    include: { submitInfo: true },
-    orderBy: { committedAt: 'desc' },
-  })
-
-  // const commits = commitsInJson.sort(
-  //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //   // @ts-ignore
-  //   (a, b) => new Date(b.committedAt) - new Date(a.committedAt),
-  // ) as unknown as CommitWithSubmitInfo[]
+  const commits = await commitsRepo.getAll('database')
+  // const commits = await commitsRepo.getAll('mocked')
 
   const users = Array.from(new Set(commits.map((commit) => commit.authorName)))
 
