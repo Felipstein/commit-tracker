@@ -6,6 +6,7 @@ import { CommitSubmittedToggle } from './components/CommitSubmittedToggle'
 import { CommitsStoreInitializer } from '@/stores/initializers/CommitsStoreInitializer'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 import { Separator } from '@/components/ui/separator'
+import commitsInJson from '../../tmp/commits.json'
 
 export default async function HomePage() {
   const commits = await prisma.commit.findMany({

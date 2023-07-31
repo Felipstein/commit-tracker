@@ -11,6 +11,8 @@ const commitDataSchema = z.object({
   redirectUrl: z.string().nonempty('redirectUrl is required.'),
 })
 
+export type CommitData = z.infer<typeof commitDataSchema>
+
 export async function POST(req: NextRequest) {
   const json = await req.json()
 

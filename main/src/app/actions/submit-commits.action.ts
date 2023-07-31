@@ -6,6 +6,10 @@ import { prisma } from '@/lib/prisma'
 import { CommitWithSubmitInfo } from '@/@types/commit.type'
 import { submitCommitService } from '@/service/submit-commit.service'
 import chalk from 'chalk'
+import { CommitData } from '../api/commits/route'
+import axios from 'axios'
+import { randomUUID } from 'crypto'
+import { revalidatePath } from 'next/cache'
 
 export async function submitCommitsAction({
   tags,
@@ -59,6 +63,51 @@ export async function submitCommitsAction({
  */
 export async function unsubmitCommitsAction() {
   await prisma.commitsSubmit.deleteMany()
+
+  const commitsUpdated = await prisma.commit.findMany({
+    include: { submitInfo: true },
+  })
+
+  return commitsUpdated as CommitWithSubmitInfo[]
+}
+
+/**
+ * DEV DEBUG
+ */
+export async function generateCommits(total = 5) {
+  const authors = [
+    { name: 'Felipstein', email: 'felipstein@gmail.com' },
+    { name: 'Yanzaum', email: 'yandavid80@gmail.com' },
+    { name: 'lucafrederice', email: 'lucafrederice@gmail.com' },
+    { name: 'Metrito', email: 'oficial@metrito.com' },
+  ]
+
+  const fakeCommits: CommitData[] = Array.from({ length: total }).map(() => {
+    const randomAuthorIndex = Math.floor(Math.random() * authors.length)
+    const randomAuthor = authors[randomAuthorIndex]
+
+    const authorName = randomAuthor.name
+    const authorEmail = randomAuthor.email
+
+    return {
+      commitHash: randomUUID(),
+      commitMessage: 'chore: this is a fake commit',
+      authorName,
+      authorEmail,
+      date: new Date().toDateString(),
+      redirectUrl: `https://github.com/${authorName}`,
+    }
+  })
+
+  const promises = fakeCommits.map((commit) =>
+    axios.post('http://localhost:3000/api/commits', commit),
+  )
+
+  console.info(chalk.gray(`creating ${total} fake commits...`))
+
+  await Promise.all(promises)
+
+  console.info(chalk.green(`successfully ${total} fake commits create.`))
 
   const commitsUpdated = await prisma.commit.findMany({
     include: { submitInfo: true },
