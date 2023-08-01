@@ -9,7 +9,6 @@ import chalk from 'chalk'
 import { CommitData } from '../api/commits/route'
 import axios from 'axios'
 import { randomUUID } from 'crypto'
-import { revalidatePath } from 'next/cache'
 
 export async function submitCommitsAction({
   tags,

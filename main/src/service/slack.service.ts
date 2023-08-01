@@ -8,7 +8,6 @@ import {
   PostMessageResponse,
   SlackGenericResponse,
 } from './slack.dto'
-import chalk from 'chalk'
 
 const oauthUserToken = process.env.SLACK_OAUTH_USER_TOKEN
 
