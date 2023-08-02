@@ -8,7 +8,7 @@ export default class CommitsRepository {
       : this.getMockedCommits()
   }
 
-  private async getMockedCommits() {
+  private async getCommitsOfDatabase() {
     const commits = await prisma.commit.findMany({
       include: { submitInfo: true },
       orderBy: { committedAt: 'desc' },
@@ -17,7 +17,7 @@ export default class CommitsRepository {
     return commits as CommitWithSubmitInfo[]
   }
 
-  private async getCommitsOfDatabase() {
+  private async getMockedCommits() {
     // const commitsInJson = await import('../../tmp/commits.json')
 
     // const commits = commitsInJson.sort(
