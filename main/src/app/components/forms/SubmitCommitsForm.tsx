@@ -270,7 +270,7 @@ export function SubmitCommitsForm({
                 </FormLabel>
 
                 <FormControl>
-                  <InputTag />
+                  <InputTag className="w-80" />
                 </FormControl>
 
                 <FormMessage />
@@ -288,6 +288,7 @@ export function SubmitCommitsForm({
                 <FormControl>
                   <Textarea
                     placeholder="Put here a description for your commits"
+                    className="w-80"
                     {...field}
                   />
                 </FormControl>
@@ -328,7 +329,7 @@ export function SubmitCommitsForm({
           </main>
           {process.env.NODE_ENV === 'development' && (
             <>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 overflow-x-hidden">
                 <span className="text-sm text-slate-400 dark:text-slate-800">
                   Debug
                 </span>
