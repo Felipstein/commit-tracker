@@ -74,6 +74,13 @@ export async function POST(req: NextRequest) {
     committedAtFixed = new Date(committedAt)
   }
 
+  if (
+    authorNameFixed === 'Metrito' &&
+    authorEmail === 'lucafrederice@gmail.com'
+  ) {
+    authorNameFixed = 'lucafrederice'
+  }
+
   const commitData = await prisma.commit.create({
     data: {
       hash: commitHash,
